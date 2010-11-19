@@ -24,7 +24,6 @@ jQuery.fn.accessNews = function( settings ){
 
 jQuery.fn.accessNews.run = function( $this, settings )
 {
-	
 	var ul = jQuery( "ul:eq(0)", $this );
 	var li = ul.children();
 	var $next = jQuery( ".next > a", $this );
@@ -112,6 +111,4 @@ jQuery.fn.accessNews.run = function( $this, settings )
 	{
 		current.parent().css('backgroundColor', 'transparent');
 	});
-	
-	
 };
