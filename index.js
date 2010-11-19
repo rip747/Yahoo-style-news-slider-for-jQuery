@@ -24,7 +24,6 @@ jQuery.fn.accessNews = function( settings ){
 
 jQuery.fn.accessNews.run = function( $this, settings )
 {
-	jQuery( ".javascript_css", $this ).css( "display", "none" );
 	
 	var ul = jQuery( "ul:eq(0)", $this );
 	var li = ul.children();
