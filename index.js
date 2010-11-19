@@ -25,12 +25,14 @@ jQuery.fn.accessNews = function( settings ){
 jQuery.fn.accessNews.run = function( $this, settings )
 {
 	jQuery( ".javascript_css", $this ).css( "display", "none" );
+	
 	var ul = jQuery( "ul:eq(0)", $this );
 	var li = ul.children();
+	var $next = jQuery( ".next > a", $this );
+	var $back = jQuery( ".back > a", $this );
+	
 	if ( li.length > settings.slideBy )
 	{
-		var $next = jQuery( ".next > a", $this );
-		var $back = jQuery( ".back > a", $this );
 		var liWidth = jQuery( li[0] ).width();
 		var animating = false;
 		ul.css( "width", ( li.length * liWidth ) );
@@ -82,33 +84,35 @@ jQuery.fn.accessNews.run = function( $this, settings )
 			}
 			return false;
 		});
-
-		$next.show();
-		jQuery(".description").hide();
-		jQuery('#list').after( [ "<div class=\"view_all\"><span class=\"count\">", settings.headline, " - ", li.length, " total</span></div>" ].join( "" ) );
-		jQuery( ".back").appendTo('.view_all');
-		jQuery( ".next").appendTo('.view_all');
-		var date = jQuery('<div></div>');
-		var firstimg = jQuery( "ul li:eq(0) img", $this );
-		date.appendTo("#container").html("<p class='date'><strong>TODAY NEWS</strong>: 2009 december 28</p>");
-		img = jQuery('<img></img>')
-		img.appendTo("#container");
-		img.attr('src', firstimg.attr('src'));
-		para = jQuery('<div></div>');
-		para.appendTo("#container");
-		var firstli = jQuery( "#newsslider ul li:eq(0)");
-		para.html("<h1>" +  jQuery('a.title', firstli ).text() + "</h1>" + "<p id='paraText'>" + jQuery('p.description', firstli).html() + "</p>");
-		firstli.addClass('selected');
-		li.hover(function ()
-		{
-			li.removeClass('selected');
-			var current = jQuery(this);
-			current.addClass('selected');
-			img.attr('src', current.find('img').attr('src'));
-			para.html("<h1>" +  jQuery('.title', current).text() + "</h1>" + "<p id='paraText'>" + jQuery('.description', current).html() + "</p>");
-		}, function ()
-		{
-			current.parent().css('backgroundColor', 'transparent');
-		});
 	}
+	
+	$next.show();
+	jQuery(".description").hide();
+	jQuery('#list').after( [ "<div class=\"view_all\"><span class=\"count\">", settings.headline, " - ", li.length, " total</span></div>" ].join( "" ) );
+	jQuery( ".back").appendTo('.view_all');
+	jQuery( ".next").appendTo('.view_all');
+	var date = jQuery('<div></div>');
+	var firstimg = jQuery( "ul li:eq(0) img", $this );
+	date.appendTo("#container").html("<p class='date'><strong>TODAY NEWS</strong>: 2009 december 28</p>");
+	img = jQuery('<img></img>')
+	img.appendTo("#container");
+	img.attr('src', firstimg.attr('src'));
+	para = jQuery('<div></div>');
+	para.appendTo("#container");
+	var firstli = jQuery( "#newsslider ul li:eq(0)");
+	para.html("<h1>" +  jQuery('a.title', firstli ).text() + "</h1>" + "<p id='paraText'>" + jQuery('p.description', firstli).html() + "</p>");
+	firstli.addClass('selected');
+	li.hover(function ()
+	{
+		li.removeClass('selected');
+		var current = jQuery(this);
+		current.addClass('selected');
+		img.attr('src', current.find('img').attr('src'));
+		para.html("<h1>" +  jQuery('.title', current).text() + "</h1>" + "<p id='paraText'>" + jQuery('.description', current).html() + "</p>");
+	}, function ()
+	{
+		current.parent().css('backgroundColor', 'transparent');
+	});
+	
+	
 };
