@@ -29,18 +29,12 @@ body {
 	position: relative;
 	overflow: hidden;
 }
-#wrapper .accessible_news_slider .javascript_css {
-	position: relative;
-	z-index: 3;
-	padding: 20px;
-	background: #fffcd3;
-}
+
 #wrapper .accessible_news_slider .skip_to_news {
 	position: absolute;
 	top: 0;
 	left: -9999px;
 }
-
 
 #wrapper .accessible_news_slider ul {
 	position: relative;
