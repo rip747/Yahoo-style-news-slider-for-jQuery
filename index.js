@@ -46,11 +46,10 @@ Unrestricted. This script is free for both personal and commercial use.
 		var firstimg = $( "img", firstli );
 		
 		methods.initContainer($this);
-
-		var nextBackLinks = "<span class=\"back\"><a href=\"#\" title=\"Back\">&lt;&lt; Back</a></span> <span class=\"next\"><a href=\"#\" title=\"Next\">Next &gt;&gt;</a></span>";
+	
 		var _date = ["<p class='date'><strong>", settings.headline, "</strong> ", methods.formatDate(settings.dateFormat), "</p>"].join("");
 		var date = $("<div></div>").html(_date);
-		var viewAll = [ "<div class=\"view_all\"><span class=\"count\">", settings.headline, " - ", li.length, " total</span>", nextBackLinks ,"</div>" ].join( "" );
+		var viewAll = [ "<div class=\"view_all\"><span class=\"count\">", settings.headline, " - ", li.length, " total</span></div>" ].join( "" );
 		var img = $('<img></img>');
 		var para = $('<div></div>');
 		
@@ -63,6 +62,67 @@ Unrestricted. This script is free for both personal and commercial use.
 		methods.setContainer($this, para);
 		
 		firstli.addClass('selected');
+	}
+	
+	methods.prevNext = function($this, settings){
+		var li = $this.children();
+		
+		// only draw prev and next links if need be
+		if ( li.length <= settings.slideBy )
+		{
+			return;
+		}
+		var animating = false;
+		var viewAll = $this.next("div.view_all");
+		var nextBackLinks = "<span class=\"back\"><a href=\"#\" title=\"Back\">&lt;&lt; Back</a></span><span class=\"next\"><a href=\"#\" title=\"Next\">Next &gt;&gt;</a></span>";
+
+		viewAll.append(nextBackLinks);
+				
+		var $next = $( ".next > a", viewAll );
+		var $back = $( ".back > a", viewAll );
+		var liWidth = $( li[0] ).width();
+		
+		$this.css( "width", ( li.length * liWidth ) );
+		$next.click(function()
+		{
+			if ( !animating )
+			{
+				animating = true;
+				offsetLeft = parseInt( $this.css( "left" ) ) - ( liWidth * settings.slideBy );
+				if ( offsetLeft + $this.width() > 0 ){
+					$back.show();
+					$this.animate({
+						left: offsetLeft
+					}, settings.speed, function(){
+						if ( parseInt( $this.css( "left" ) ) + $this.width() <= liWidth * settings.slideBy ) {}
+					});
+				}
+				animating = false;
+			}
+			return false;
+		});
+		
+		$back.click(function()
+		{
+			if ( !animating )
+			{
+				animating = true;
+				offsetRight = parseInt( $this.css( "left" ) ) + ( liWidth * settings.slideBy );
+				if ( offsetRight + $this.width() <= $this.width() )
+				{
+					$next.show();
+					$this.animate({
+						left: offsetRight
+					}, settings.speed, function()
+					{
+						if ( parseInt( $this.css( "left" ) ) == 0 ) {}
+					});
+				}
+				animating = false;
+			}
+			return false;
+		});
+		
 	}
 	
 	methods.initContainer = function (context){
@@ -84,57 +144,8 @@ Unrestricted. This script is free for both personal and commercial use.
 		
 		var li = $this.children();
 		
-		methods.draw ($this, settings);
-		
-		var viewAll = $this.next("div.view_all");		
-		var $next = $( ".next > a", viewAll );
-		var $back = $( ".back > a", viewAll );
-
-		if ( li.length > settings.slideBy )
-		{
-			var liWidth = $( li[0] ).width();
-			var animating = false;
-			$this.css( "width", ( li.length * liWidth ) );
-			$next.click(function()
-			{
-				if ( !animating )
-				{
-					animating = true;
-					offsetLeft = parseInt( $this.css( "left" ) ) - ( liWidth * settings.slideBy );
-					if ( offsetLeft + $this.width() > 0 ){
-						$back.show();
-						$this.animate({
-							left: offsetLeft
-						}, settings.speed, function(){
-							if ( parseInt( $this.css( "left" ) ) + $this.width() <= liWidth * settings.slideBy ) {}
-						});
-					}
-					animating = false;
-				}
-				return false;
-			});
-			
-			$back.click(function()
-			{
-				if ( !animating )
-				{
-					animating = true;
-					offsetRight = parseInt( $this.css( "left" ) ) + ( liWidth * settings.slideBy );
-					if ( offsetRight + $this.width() <= $this.width() )
-					{
-						$next.show();
-						$this.animate({
-							left: offsetRight
-						}, settings.speed, function()
-						{
-							if ( parseInt( $this.css( "left" ) ) == 0 ) {}
-						});
-					}
-					animating = false;
-				}
-				return false;
-			});
-		}
+		methods.draw($this, settings);
+		methods.prevNext($this, settings);
 
 		li.hover(function ()
 		{
@@ -149,6 +160,5 @@ Unrestricted. This script is free for both personal and commercial use.
 		});
 		
 	};
-	
 	
 })( jQuery );
