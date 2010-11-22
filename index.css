@@ -16,21 +16,21 @@ body {
 }
 
 
-#wrapper .accessible_news_slider img {
+div.accessible_news_slider img {
 	border: 0;
 }
-#wrapper .accessible_news_slider li,
-#wrapper .accessible_news_slider p {
+div.accessible_news_slider li,
+div.accessible_news_slider p {
 	margin: 0;
 	padding: 0;
 }
 
-#wrapper .accessible_news_slider {
+div.accessible_news_slider {
 	position: relative;
 	overflow: hidden;
 }
 
-#wrapper .accessible_news_slider ul {
+div.accessible_news_slider ul {
 	position: relative;
 	left: 0;
 	width: auto;
@@ -40,106 +40,8 @@ body {
 	overflow: hidden;
 	z-index: 1;
 }
-#wrapper .accessible_news_slider li {
+div.accessible_news_slider li {
 	float: left;
 	display: inline;
 	width: 300px;
 }
-
-
-
-/*
-	Accessible News Slider : Plugin Specific : Theme [ Business as Usual ]
------------------------------------------------------------------------------------------*/
-
-#wrapper .business_as_usual  {
-	width: 428px;
-	border-left: 1px solid #ddd;
-	border-right: 1px solid #ddd;
-	border-top: 1px solid #ddd;
-	margin: 0 0 32px 0;
-	background: url(images/themes/master/view_all_bg.gif) repeat-x bottom left;
-}
-
-#wrapper .business_as_usual  ul{
-	padding:0 0 0 0; margin:0;
-}
-#wrapper .business_as_usual a {
-	color: #363636;
-}
-
-#wrapper .business_as_usual .back {
-	height: 23px; 
-}
-
-#wrapper .business_as_usual .back a {
-	height: 23px;
-	line-height: 23px; 
-}
-
-#wrapper .business_as_usual .next {
-	height: 23px; 
-}
-
-#wrapper .business_as_usual .next a {
-	height: 23px;
-	line-height: 23px;
-	text-align: right; 
-	display:inline;	 
-}
-
-#wrapper .business_as_usual .view_all {
-	border-top: 1px solid #ddd;
-	border-bottom: 1px solid #ddd;
-	margin: 0 0 0 0;
-	padding: 2px 2px 0 2px;
-	background: url(images/themes/master/view_all_bg.gif) repeat-x bottom left;
-	text-align: left;
-}
-
-#wrapper .business_as_usual li {
-	padding: 5px 0; margin:5px 0 0 0;
-	overflow: hidden;
-	width: 107px; 
-	text-align:center; height:75px; 
-	font-size:12px; color:#666;
-    background: url(http://www.micc.unifi.it/ferracani/blog/wp-includes/js/newsslider/images/themes/master/pattern_sfondo.jpg) no-repeat bottom center ; 
-}
-
-#wrapper .business_as_usual li.selected {
-	background: url(http://www.micc.unifi.it/ferracani/blog/wp-includes/js/newsslider/images/themes/master/pattern.jpg) no-repeat ; color:#FFFFFF;
-}
-
-#wrapper .business_as_usual li img {
-
-	margin-top:10px;
-	border:1px solid #eee;
-	padding:1px; 
-	background-color:#FFFFFF;
-}
-#wrapper .business_as_usual li p {
-	margin: 0 ; height:35px;
-}
-
-#wrapper .business_as_usual #container { 
-	width:428px; min-height:280px; 
-	text-align:center; padding-top:4px;
-}
-
-#wrapper .business_as_usual #container a {
-	text-decoration:none;
-	font-weight: bold;
-	background-image:none;
-}
-
-#wrapper .business_as_usual strong {color:#000;}
-
-#wrapper .business_as_usual .count { margin-right:190px;}
-
-#wrapper .business_as_usual #paraText { text-align:left; color:#666666; margin:4px; }
-
-#wrapper .business_as_usual .date { text-align:left; margin-left:4px; margin-bottom:4px;}
-
-#wrapper .business_as_usual h1 { text-align:left; color:#666666; margin:8px 4px 4px 4px; font-size:16px; }
-
-#wrapper .business_as_usual li a {text-decoration:none; background-image:none; font-weight:normal; }
