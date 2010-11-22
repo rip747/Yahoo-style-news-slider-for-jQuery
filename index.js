@@ -46,26 +46,49 @@ Unrestricted. This script is free for both personal and commercial use.
 		var firstli = $( "li:eq(0)", ul);
 		var firstimg = $( "img", firstli );
 		
-		var container = "<div id=\"container\"></div>";
+		methods.initContainer(ul);
+
 		var nextBackLinks = "<span class=\"back\"><a href=\"#\" title=\"Back\">&lt;&lt; Back</a></span> <span class=\"next\"><a href=\"#\" title=\"Next\">Next &gt;&gt;</a></span>";
-		var date = $("<div></div>");
 		var _date = ["<p class='date'><strong>", settings.headline, "</strong> ", methods.formatDate(settings.dateFormat), "</p>"].join("");
+		var date = $("<div></div>").html(_date);
 		var viewAll = [ "<div class=\"view_all\"><span class=\"count\">", settings.headline, " - ", li.length, " total</span>", nextBackLinks ,"</div>" ].join( "" );
 		var img = $('<img></img>');
 		var para = $('<div></div>');
 		
-		
-		ul.before( container );
 		ul.after( viewAll );
-		date.appendTo("#container").html(_date);
-		
-		img.appendTo("#container");
 		img.attr('src', firstimg.attr('src'));
-		para.appendTo("#container");
 		para.html("<h1>" +  $('a.title', firstli ).text() + "</h1>" + "<p id='paraText'>" + $('p.description', firstli).html() + "</p>");
+		
+		methods.setContainer(ul, date);
+		methods.setContainer(ul, img);
+		methods.setContainer(ul, para);
+		
 		firstli.addClass('selected');
 	}
 	
+	/*
+	methods.currentStory = function (context){
+		context.addClass('selected');
+		img.attr('src', current.find('img').attr('src'));
+		para.html("<h1>" +  $('.title', current).text() + "</h1>" + "<p id='paraText'>" + $('.description', current).html() + "</p>");
+	}
+	*/
+	
+	methods.initContainer = function (context){
+		var container = "<div class=\"container\"></div>";
+		context.before( container );
+	}
+	
+	methods.setContainer = function (context, content){
+		var container = methods.getContainer(context);
+		container.append(content);
+	}
+	
+	methods.getContainer = function (context){
+		var container = context.prev("div.container");
+		return container;
+	} 
+		
 	methods.run = function( $this, settings){
 		
 		var ul = $( "ul:eq(0)", $this );
