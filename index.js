@@ -104,6 +104,7 @@ Unrestricted. This script is free for both personal and commercial use.
 		
 		$next.show();
 		$(".description").hide();
+		$('ul', $this).before("<div id=\"container\"></div>");
 		$('ul', $this).after( [ "<div class=\"view_all\"><span class=\"count\">", settings.headline, " - ", li.length, " total</span></div>" ].join( "" ) );
 		$( ".back").appendTo('.view_all');
 		$( ".next").appendTo('.view_all');
