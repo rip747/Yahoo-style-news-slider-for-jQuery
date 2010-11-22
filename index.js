@@ -43,25 +43,19 @@ Unrestricted. This script is free for both personal and commercial use.
 	methods.draw = function ($this, settings){
 		var li = $this.children();
 		var firstli = $("li:eq(0)", $this);
-		var firstimg = $( "img", firstli );
-		
+	
 		methods.initContainer($this);
 	
-		var _date = ["<p class='date'><strong>", settings.headline, "</strong> ", methods.formatDate(settings.dateFormat), "</p>"].join("");
-		var date = $("<div></div>").html(_date);
+		var _date = ["<p><strong>", settings.headline, "</strong> ", methods.formatDate(settings.dateFormat), "</p>"].join("");
+		var date = $("<div class='date'></div>").html(_date);
 		var viewAll = [ "<div class=\"view_all\"><span class=\"count\">", settings.headline, " - ", li.length, " total</span></div>" ].join( "" );
-		var img = $('<img></img>');
-		var para = $('<div></div>');
-		
-		$this.after( viewAll );
-		img.attr('src', firstimg.attr('src'));
-		para.html("<h1>" +  $('a.title', firstli ).text() + "</h1>" + "<p id='paraText'>" + $('p.description', firstli).html() + "</p>");
+		var content = $("<div class='content'></div>");
 		
 		methods.setContainer($this, date);
-		methods.setContainer($this, img);
-		methods.setContainer($this, para);
+		methods.setContainer($this, content);
+		methods.setContent($this, firstli);
 		
-		firstli.addClass('selected');
+		$this.after( viewAll );
 	}
 	
 	methods.prevNext = function($this, settings){
@@ -125,6 +119,19 @@ Unrestricted. This script is free for both personal and commercial use.
 		
 	}
 	
+	methods.setContent = function ($this, li){
+		var container = methods.getContainer($this);
+		var _content = $("div.content", container);
+		var img = $('<img></img>');
+		var para = $('<div></div>');
+		li.addClass('selected');		
+		_content.empty();
+		img.attr('src', $('img', li).attr('src'));
+		para.html("<h1>" +  $('a.title', li ).text() + "</h1>" + "<p id='paraText'>" + $('p.description', li).html() + "</p>");
+		_content.append(img);
+		_content.append(para);
+	}
+	
 	methods.initContainer = function (context){
 		context.wrap("<div class=\"accessible_news_slider business_as_usual\"></div>");
 		context.before("<div class=\"container\"></div>");
@@ -150,10 +157,7 @@ Unrestricted. This script is free for both personal and commercial use.
 		li.hover(function ()
 		{
 			li.removeClass('selected');
-			var current = $(this);
-			current.addClass('selected');
-			img.attr('src', current.find('img').attr('src'));
-			para.html("<h1>" +  $('.title', current).text() + "</h1>" + "<p id='paraText'>" + $('.description', current).html() + "</p>");
+			methods.setContent($this, $(this));
 		}, function ()
 		{
 			current.parent().css('backgroundColor', 'transparent');
