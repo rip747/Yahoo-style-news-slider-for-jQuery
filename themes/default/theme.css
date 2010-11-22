@@ -1,6 +1,6 @@
 /* Accessible News Slider : Plugin Specific : Theme Default [ Business as Usual ] */
 
-div.accessible_news_slider.business_as_usual  {
+div.accessible_news_slider.business_as_usual {
 	width: 428px;
 	border-left: 1px solid #ddd;
 	border-right: 1px solid #ddd;
@@ -9,85 +9,116 @@ div.accessible_news_slider.business_as_usual  {
 	background: url(view_all_bg.gif) repeat-x bottom left;
 }
 
-div.accessible_news_slider.business_as_usual  ul{
-	padding:0 0 0 0; margin:0;
+div.accessible_news_slider.business_as_usual ul {
+	padding: 0;
+	margin: 0;
 }
 div.accessible_news_slider.business_as_usual a {
 	color: #363636;
 }
 
-div.accessible_news_slider.business_as_usual .back {
-	height: 23px; 
-}
-
-div.accessible_news_slider.business_as_usual .back a {
-	height: 23px;
-	line-height: 23px; 
-}
-
-div.accessible_news_slider.business_as_usual .next {
-	height: 23px; 
-}
-
-div.accessible_news_slider.business_as_usual .next a {
-	height: 23px;
-	line-height: 23px;
-	text-align: right; 
-	display:inline;	 
-}
-
 div.accessible_news_slider.business_as_usual .view_all {
 	border-top: 1px solid #ddd;
 	border-bottom: 1px solid #ddd;
-	margin: 0 0 0 0;
+	margin: 0;
 	padding: 2px 2px 0 2px;
 	background: url(view_all_bg.gif) repeat-x bottom left;
 	text-align: left;
+	clear: both;
+	width: 100%;
+	overflow: hidden;
 }
 
 div.accessible_news_slider.business_as_usual li {
-	padding: 5px 0; margin:5px 0 0 0;
+	padding: 5px 0;
+	margin: 5px 0 0 0;
 	overflow: hidden;
-	width: 107px; 
-	text-align:center; height:75px; 
-	font-size:12px; color:#666;
-    background: url(background.jpg) no-repeat bottom center ; 
+	width: 107px;
+	text-align: center;
+	height: 75px;
+	font-size: 12px;
+	color: #666;
+    background: url(background.jpg) no-repeat bottom center;
 }
 
 div.accessible_news_slider.business_as_usual li.selected {
-	background: url(selected.jpg) no-repeat ; color:#FFFFFF;
+	background: url(selected.jpg) no-repeat;
+	color: #FFFFFF;
 }
 
 div.accessible_news_slider.business_as_usual li img {
-
-	margin-top:10px;
-	border:1px solid #eee;
-	padding:1px; 
-	background-color:#FFFFFF;
+	margin-top: 10px;
+	border: 1px solid #eee;
+	padding: 1px;
+	background-color: #FFFFFF;
 }
 div.accessible_news_slider.business_as_usual li p {
-	margin: 0 ; height:35px;
+	margin: 0;
+	height: 35px;
 }
 
 div.accessible_news_slider.business_as_usual .container { 
-	width:428px; min-height:280px; 
-	text-align:center; padding-top:4px;
+	width: 428px;
+	min-height: 280px; 
+	text-align: center;
+	padding-top: 4px;
 }
 
 div.accessible_news_slider.business_as_usual .container a {
-	text-decoration:none;
+	text-decoration: none;
 	font-weight: bold;
-	background-image:none;
+	background-image: none;
 }
 
-div.accessible_news_slider.business_as_usual strong {color:#000;}
+div.accessible_news_slider.business_as_usual strong {
+	color: #000;
+}
 
-div.accessible_news_slider.business_as_usual .count { margin-right:190px;}
+div.accessible_news_slider.business_as_usual .count {
+	float: left;
+}
 
-div.accessible_news_slider.business_as_usual .paraText { text-align:left; color:#666666; margin:4px; }
+div.accessible_news_slider.business_as_usual .controls {
+	float: right;
+}
 
-div.accessible_news_slider.business_as_usual .date { text-align:left; margin-left:4px; margin-bottom:4px;}
+div.accessible_news_slider.business_as_usual .controls a {
+	display: inline-block;
+	width: 22px;
+	height: 12px;
+	text-indent: -9999px;
+	background: no-repeat bottom center;
+}
 
-div.accessible_news_slider.business_as_usual h1 { text-align:left; color:#666666; margin:8px 4px 4px 4px; font-size:16px; }
+div.accessible_news_slider.business_as_usual .back a {
+	background-image: url(previous.jpg);
+}
 
-div.accessible_news_slider.business_as_usual li a {text-decoration:none; background-image:none; font-weight:normal; }
+div.accessible_news_slider.business_as_usual .next a {
+	background-image: url(next.jpg);
+}
+
+div.accessible_news_slider.business_as_usual .paraText {
+	text-align: left;
+	color: #666666;
+	margin: 4px;
+}
+
+div.accessible_news_slider.business_as_usual .date {
+	text-align: left;
+	margin-left: 4px;
+	margin-bottom: 4px;
+}
+
+div.accessible_news_slider.business_as_usual h1 {
+	text-align: left;
+	color: #666666;
+	margin: 8px 4px 4px 4px;
+	font-size: 16px;
+}
+
+div.accessible_news_slider.business_as_usual li a {
+	text-decoration: none;
+	background-image: none;
+	font-weight: normal;
+}

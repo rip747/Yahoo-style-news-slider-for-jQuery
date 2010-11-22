@@ -52,7 +52,7 @@ Unrestricted. This script is free for both personal and commercial use.
 		}
 		var animating = false;
 		var viewAll = $this.next("div.view_all");
-		var nextBackLinks = "<span class=\"back\"><a href=\"#\" title=\"Back\">&lt;&lt; Back</a></span><span class=\"next\"><a href=\"#\" title=\"Next\">Next &gt;&gt;</a></span>";
+		var nextBackLinks = "<div class=\"controls\"><span class=\"back\"><a href=\"#\" title=\"Back\">&lt;&lt; Back</a></span><span class=\"next\"><a href=\"#\" title=\"Next\">Next &gt;&gt;</a></span></div>";
 
 		viewAll.append(nextBackLinks);
 				
@@ -127,7 +127,7 @@ Unrestricted. This script is free for both personal and commercial use.
 	
 		var _date = ["<p><strong>", settings.headline, "</strong> ", methods.formatDate(settings.dateFormat), "</p>"].join("");
 		var date = $("<div class='date'></div>").html(_date);
-		var viewAll = [ "<div class=\"view_all\"><span class=\"count\">", li.length, " total</span></div>" ].join( "" );
+		var viewAll = [ "<div class=\"view_all\"><div class=\"count\"><span>", li.length, " total</span></div></div>" ].join( "" );
 		var content = $("<div class='content'></div>");
 		
 		methods.set(context, date);
