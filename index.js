@@ -40,10 +40,39 @@ Unrestricted. This script is free for both personal and commercial use.
 		return $.datepicker.formatDate( format, new Date() );
 	}
 	
+	methods.draw = function ($this, settings){
+		var ul = $( "ul", $this );
+		var li = ul.children();
+		var firstli = $( "li:eq(0)", ul);
+		var firstimg = $( "img", firstli );
+		
+		var container = "<div id=\"container\"></div>";
+		var nextBackLinks = "<span class=\"back\"><a href=\"#\" title=\"Back\">&lt;&lt; Back</a></span> <span class=\"next\"><a href=\"#\" title=\"Next\">Next &gt;&gt;</a></span>";
+		var date = $("<div></div>");
+		var _date = ["<p class='date'><strong>", settings.headline, "</strong> ", methods.formatDate(settings.dateFormat), "</p>"].join("");
+		var viewAll = [ "<div class=\"view_all\"><span class=\"count\">", settings.headline, " - ", li.length, " total</span>", nextBackLinks ,"</div>" ].join( "" );
+		var img = $('<img></img>');
+		var para = $('<div></div>');
+		
+		
+		ul.before( container );
+		ul.after( viewAll );
+		date.appendTo("#container").html(_date);
+		
+		img.appendTo("#container");
+		img.attr('src', firstimg.attr('src'));
+		para.appendTo("#container");
+		para.html("<h1>" +  $('a.title', firstli ).text() + "</h1>" + "<p id='paraText'>" + $('p.description', firstli).html() + "</p>");
+		firstli.addClass('selected');
+	}
+	
 	methods.run = function( $this, settings){
 		
 		var ul = $( "ul:eq(0)", $this );
 		var li = ul.children();
+		
+		methods.draw ($this, settings);
+		
 		var $next = $( ".next > a", $this );
 		var $back = $( ".back > a", $this );
 		
@@ -65,13 +94,9 @@ Unrestricted. This script is free for both personal and commercial use.
 							left: offsetLeft
 						}, settings.speed, function(){
 							if ( parseInt( ul.css( "left" ) ) + ul.width() <= liWidth * settings.slideBy ) {}
-							animating = false;
 						});
 					}
-					else
-					{
-						animating = false;
-					}
+					animating = false;
 				}
 				return false;
 			});
@@ -90,35 +115,14 @@ Unrestricted. This script is free for both personal and commercial use.
 						}, settings.speed, function()
 						{
 							if ( parseInt( ul.css( "left" ) ) == 0 ) {}
-							animating = false;
 						});
 					}
-					else
-					{
-						animating = false;
-					}
+					animating = false;
 				}
 				return false;
 			});
 		}
-		
-		$next.show();
-		$(".description").hide();
-		$('ul', $this).before("<div id=\"container\"></div>");
-		$('ul', $this).after( [ "<div class=\"view_all\"><span class=\"count\">", settings.headline, " - ", li.length, " total</span></div>" ].join( "" ) );
-		$( ".back").appendTo('.view_all');
-		$( ".next").appendTo('.view_all');
-		var date = $('<div></div>');
-		var firstimg = $( "ul li:eq(0) img", $this );
-		date.appendTo("#container").html(["<p class='date'><strong>", settings.headline, "</strong> ", methods.formatDate(settings.dateFormat), "</p>"].join(""));
-		img = $('<img></img>')
-		img.appendTo("#container");
-		img.attr('src', firstimg.attr('src'));
-		para = $('<div></div>');
-		para.appendTo("#container");
-		var firstli = $( "ul li:eq(0)", $this);
-		para.html("<h1>" +  $('a.title', firstli ).text() + "</h1>" + "<p id='paraText'>" + $('p.description', firstli).html() + "</p>");
-		firstli.addClass('selected');
+
 		li.hover(function ()
 		{
 			li.removeClass('selected');
