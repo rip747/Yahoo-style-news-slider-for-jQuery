@@ -29,35 +29,19 @@ Unrestricted. This script is free for both personal and commercial use.
 		
 		return this.each(function(){
 			var $this = $(this);
-			methods.run( $this , settings );
+			methods.init( $this , settings );
 		});
 		
 	};
 	
 	var methods = {};
 	
+	// call jquery-ui to format the date display
 	methods.formatDate = function( format ){
 		return $.datepicker.formatDate( format, new Date() );
 	}
 	
-	methods.draw = function ($this, settings){
-		var li = $this.children();
-		var firstli = $("li:eq(0)", $this);
-	
-		methods.initContainer($this);
-	
-		var _date = ["<p><strong>", settings.headline, "</strong> ", methods.formatDate(settings.dateFormat), "</p>"].join("");
-		var date = $("<div class='date'></div>").html(_date);
-		var viewAll = [ "<div class=\"view_all\"><span class=\"count\">", settings.headline, " - ", li.length, " total</span></div>" ].join( "" );
-		var content = $("<div class='content'></div>");
-		
-		methods.setContainer($this, date);
-		methods.setContainer($this, content);
-		methods.setContent($this, firstli);
-		
-		$this.after( viewAll );
-	}
-	
+	// draws and sets up the prev / next links if need be
 	methods.prevNext = function($this, settings){
 		var li = $this.children();
 		
@@ -119,8 +103,9 @@ Unrestricted. This script is free for both personal and commercial use.
 		
 	}
 	
-	methods.setContent = function ($this, li){
-		var container = methods.getContainer($this);
+	// sets the content area of the container
+	methods.content = function ($this, li){
+		var container = methods.get($this);
 		var _content = $("div.content", container);
 		var img = $('<img></img>');
 		var para = $('<div></div>');
@@ -132,32 +117,51 @@ Unrestricted. This script is free for both personal and commercial use.
 		_content.append(para);
 	}
 	
-	methods.initContainer = function (context){
+	// sets up the main container to display
+	methods.setup = function (context, settings){
+		var li = context.children();
+		var firstli = $("li:eq(0)", context);
+	
 		context.wrap("<div class=\"accessible_news_slider business_as_usual\"></div>");
 		context.before("<div class=\"container\"></div>");
+	
+		var _date = ["<p><strong>", settings.headline, "</strong> ", methods.formatDate(settings.dateFormat), "</p>"].join("");
+		var date = $("<div class='date'></div>").html(_date);
+		var viewAll = [ "<div class=\"view_all\"><span class=\"count\">", li.length, " total</span></div>" ].join( "" );
+		var content = $("<div class='content'></div>");
+		
+		methods.set(context, date);
+		methods.set(context, content);
+		methods.content(context, firstli);
+		
+		context.after( viewAll );
+		
+		methods.prevNext(context, settings);
 	}
 	
-	methods.setContainer = function (context, content){
-		var container = methods.getContainer(context);
+	// append some content to the main container
+	methods.set = function (context, content){
+		var container = methods.get(context);
 		container.append(content);
 	}
 	
-	methods.getContainer = function (context){
+	// returns the main container
+	methods.get = function (context){
 		var container = context.prev("div.container");
 		return container;
 	} 
-		
-	methods.run = function( $this, settings){
+	
+	// call to run the plugin
+	methods.init = function( $this, settings){
 		
 		var li = $this.children();
 		
-		methods.draw($this, settings);
-		methods.prevNext($this, settings);
+		methods.setup($this, settings);
 
 		li.hover(function ()
 		{
 			li.removeClass('selected');
-			methods.setContent($this, $(this));
+			methods.content($this, $(this));
 		}, function ()
 		{
 			current.parent().css('backgroundColor', 'transparent');
