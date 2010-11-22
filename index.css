@@ -30,12 +30,6 @@ body {
 	overflow: hidden;
 }
 
-#wrapper .accessible_news_slider .skip_to_news {
-	position: absolute;
-	top: 0;
-	left: -9999px;
-}
-
 #wrapper .accessible_news_slider ul {
 	position: relative;
 	left: 0;
