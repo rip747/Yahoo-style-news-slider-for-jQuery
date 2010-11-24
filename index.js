@@ -112,7 +112,9 @@ Unrestricted. This script is free for both personal and commercial use.
 		li.addClass('selected');		
 		_content.empty();
 		img.attr('src', $('img', li).attr('src'));
-		para.html("<h1>" +  $('a.title', li ).text() + "</h1>" + "<p class='paraText'>" + $('p.description', li).html() + "</p>");
+		var title = $('p.title a', li );
+		title = title.attr('title') || title.text();
+		para.html("<h1>" +  title + "</h1>" + "<p class='paraText'>" + $('p.description', li).html() + "</p>");
 		_content.append(img);
 		_content.append(para);
 	}
