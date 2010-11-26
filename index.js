@@ -23,7 +23,9 @@ Unrestricted. This script is free for both personal and commercial use.
 			// a valid jquery ui date format
 			dateFormat: "MM dd yy",
 			// slideshow interval
-			slideShowInterval: 5000
+			slideShowInterval: 5000,
+			// delay before slide show begins
+			slideShowDelay: 5000
 		};
 		
 		// call jquery-ui to format the date display
@@ -174,7 +176,7 @@ Unrestricted. This script is free for both personal and commercial use.
 			container.init();
 			// append hover every to each element to update container content
 			prevNext.init();
-			slideshow.init();
+			setTimeout(function() { slideshow.init(); }, settings.slideShowDelay);
 			lis.hover(function(){
 				slideshow.off();
 				lis.removeClass('selected');
