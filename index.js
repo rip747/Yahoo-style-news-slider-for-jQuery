@@ -16,10 +16,10 @@ Unrestricted. This script is free for both personal and commercial use.
 		var defaults = {
 			// title for the display
 			headline: "TODAY NEWS:",
-			// ?
-			speed: "normal",
 			// number of slides to advance when pagnating
 			slideBy: 4,
+			// the speed for the pagination
+			speed: "normal",
 			// a valid jquery ui date format
 			dateFormat: "MM dd yy",
 			// slideshow interval
@@ -34,6 +34,7 @@ Unrestricted. This script is free for both personal and commercial use.
 		}
 		
 		return this.each(function(){
+			
 			settings = jQuery.extend(defaults, settings);
 			var _this = jQuery(this);
 			var lis = _this.children();
@@ -85,7 +86,7 @@ Unrestricted. This script is free for both personal and commercial use.
 				
 			};
 			
-			var prevNext = {
+			var pagination = {
 			
 				_viewAll: ["<div class=\"view_all\"><div class=\"count\"><span>", lis.length, " total</span></div></div>"].join(""),
 
@@ -139,6 +140,7 @@ Unrestricted. This script is free for both personal and commercial use.
 					});
 					
 				}
+				
 			};
 			
 			var slideshow = {
@@ -164,24 +166,26 @@ Unrestricted. This script is free for both personal and commercial use.
 						next = jQuery(lis[0]);
 					}
 					current.removeClass('selected');
-					next.addClass('selected');
 					container.set(next);
-				},
-				
-				
+				}
 				
 			};
 			
 			//setup the container
 			container.init();
-			// append hover every to each element to update container content
-			prevNext.init();
+			// pagination setup
+			pagination.init();
+			// set delay for the slideshow
 			setTimeout(function() { slideshow.init(); }, settings.slideShowDelay);
+			// append hover every to each element to update container content
 			lis.hover(function(){
+				// pause the slideshow on hover
 				slideshow.off();
 				lis.removeClass('selected');
+				// set container contect to hovered li
 				container.set(jQuery(this));
 			}, function (){
+				// resume slideshow on mouseout
 				slideshow.on();
 				current.parent().css('backgroundColor', 'transparent');
 			})
