@@ -21,7 +21,9 @@ Unrestricted. This script is free for both personal and commercial use.
 			// number of slides to advance when pagnating
 			slideBy: 4,
 			// a valid jquery ui date format
-			dateFormat: "MM dd yy"
+			dateFormat: "MM dd yy",
+			// slideshow interval
+			slideShowInterval: 5000
 		};
 		
 		// call jquery-ui to format the date display
@@ -33,6 +35,7 @@ Unrestricted. This script is free for both personal and commercial use.
 			settings = jQuery.extend(defaults, settings);
 			var _this = jQuery(this);
 			var lis = _this.children();
+			var intervalId;
 			
 			var container = {
 			
@@ -138,14 +141,46 @@ Unrestricted. This script is free for both personal and commercial use.
 				}
 			};
 			
+			var slideshow = {
+				
+				init: function(){
+					this.on();
+				},
+				
+				on: function(){
+					intervalId = setInterval( this.slide, settings.slideShowInterval );
+				},
+				
+				off: function(){
+					clearInterval(intervalId);
+				},
+				
+				slide: function(){
+					
+					var current = jQuery("li.selected", _this);
+					var next = current.next("li");
+					if (!next.length)
+					{
+						next = jQuery(lis[0]);
+					}
+					current.removeClass('selected');
+					next.addClass('selected');
+					container.set(next);
+				}
+				
+			};
+			
 			//setup the container
 			container.init();
 			// append hover every to each element to update container content
 			prevNext.init();
+			slideshow.init();
 			lis.hover(function(){
+				slideshow.off();
 				lis.removeClass('selected');
 				container.set(jQuery(this));
 			}, function (){
+				slideshow.on();
 				current.parent().css('backgroundColor', 'transparent');
 			})
 
