@@ -113,7 +113,6 @@ Unrestricted. This script is free for both personal and commercial use.
 							animating = true;
 							offsetLeft = parseInt(_this.css("left")) - (slideByWidth);
 							if (offsetLeft + _this.width() > 0 && offsetLeft <= totalWidth) {
-								_back.show();
 								_this.animate({
 									left: offsetLeft
 								}, settings.speed);
@@ -128,7 +127,6 @@ Unrestricted. This script is free for both personal and commercial use.
 							animating = true;
 							offsetRight = parseInt(_this.css("left")) + (slideByWidth);
 							if (offsetRight + _this.width() <= _this.width()) {
-								_next.show();
 								_this.animate({
 									left: offsetRight
 								}, settings.speed);
@@ -166,7 +164,9 @@ Unrestricted. This script is free for both personal and commercial use.
 					current.removeClass('selected');
 					next.addClass('selected');
 					container.set(next);
-				}
+				},
+				
+				
 				
 			};
 			
