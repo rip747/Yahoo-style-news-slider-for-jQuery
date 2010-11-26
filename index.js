@@ -82,10 +82,10 @@ Unrestricted. This script is free for both personal and commercial use.
 			
 			var prevNext = {
 			
-				viewAll: ["<div class=\"view_all\"><div class=\"count\"><span>", lis.length, " total</span></div></div>"].join(""),
+				_viewAll: ["<div class=\"view_all\"><div class=\"count\"><span>", lis.length, " total</span></div></div>"].join(""),
 
 				init: function(){
-					_this.after(this.viewAll);
+					_this.after(this._viewAll);
 					if (lis.length > settings.slideBy) {
 						this.draw();
 					}
@@ -102,12 +102,13 @@ Unrestricted. This script is free for both personal and commercial use.
 					var _next = jQuery(".next > a", viewAll);
 					var _back = jQuery(".back > a", viewAll);
 					var liWidth = jQuery(lis[0]).width();
+					var slideByWidth = liWidth * settings.slideBy;
 					var totalWidth = liWidth * lis.length; 
 					
 					_next.click(function(){
 						if (!animating) {
 							animating = true;
-							offsetLeft = parseInt(_this.css("left")) - (liWidth * settings.slideBy);
+							offsetLeft = parseInt(_this.css("left")) - (slideByWidth);
 							if (offsetLeft + _this.width() > 0 && offsetLeft <= totalWidth) {
 								_back.show();
 								_this.animate({
@@ -122,7 +123,7 @@ Unrestricted. This script is free for both personal and commercial use.
 					_back.click(function(){
 						if (!animating) {
 							animating = true;
-							offsetRight = parseInt(_this.css("left")) + (liWidth * settings.slideBy);
+							offsetRight = parseInt(_this.css("left")) + (slideByWidth);
 							if (offsetRight + _this.width() <= _this.width()) {
 								_next.show();
 								_this.animate({
