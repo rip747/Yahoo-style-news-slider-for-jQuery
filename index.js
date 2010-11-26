@@ -33,7 +33,7 @@ Unrestricted. This script is free for both personal and commercial use.
 			return jQuery.datepicker.formatDate(format, new Date());
 		}
 		
-		return this.each(function(settings){
+		return this.each(function(){
 			settings = jQuery.extend(defaults, settings);
 			var _this = jQuery(this);
 			var lis = _this.children();
