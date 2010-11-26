@@ -25,7 +25,9 @@ Unrestricted. This script is free for both personal and commercial use.
 			// slideshow interval
 			slideShowInterval: 5000,
 			// delay before slide show begins
-			slideShowDelay: 5000
+			slideShowDelay: 5000,
+			// theme
+			theme: "business_as_usual"
 		};
 		
 		// call jquery-ui to format the date display
@@ -42,7 +44,7 @@ Unrestricted. This script is free for both personal and commercial use.
 			
 			var container = {
 			
-				_wrapper: "<div class=\"accessible_news_slider business_as_usual\"></div>",
+				_wrapper: "<div class=\"accessible_news_slider " + settings.theme + "\"></div>",
 				_container: "<div class=\"container\"></div>",
 				_date: jQuery("<div class='date'></div>").html(["<p><strong>", settings.headline, "</strong> ", formatDate(settings.dateFormat), "</p>"].join("")),
 				_content: jQuery("<div class='content'></div>"),
