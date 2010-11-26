@@ -33,9 +33,6 @@ Unrestricted. This script is free for both personal and commercial use.
 			settings = jQuery.extend(defaults, settings);
 			var _this = jQuery(this);
 			var lis = _this.children();
-			var first = jQuery(lis[0]);
-			var liWidth = first.width();
-			_this.css("width", (lis.length * liWidth));
 			
 			var container = {
 			
@@ -43,17 +40,18 @@ Unrestricted. This script is free for both personal and commercial use.
 				_container: "<div class=\"container\"></div>",
 				_date: jQuery("<div class='date'></div>").html(["<p><strong>", settings.headline, "</strong> ", formatDate(settings.dateFormat), "</p>"].join("")),
 				_content: jQuery("<div class='content'></div>"),
-				_first: jQuery("li:eq(0)", _this),
+				_first: jQuery(lis[0]),
 				
 				init: function(){
 					// wrap the ul with our div class and assigned theme
 					_this.wrap(this._wrapper);
 					// our container where we show the image and news item
 					_this.before(this._container);
+					// set the width of the container
+					_this.css("width", (lis.length * this._first.width()));
 					this.append(this._date);
 					this.append(this._content);
 					this.set(this._first);
-					
 				},
 				
 				append: function(content){
@@ -85,7 +83,7 @@ Unrestricted. This script is free for both personal and commercial use.
 			var prevNext = {
 			
 				viewAll: ["<div class=\"view_all\"><div class=\"count\"><span>", lis.length, " total</span></div></div>"].join(""),
-				
+
 				init: function(){
 					_this.after(this.viewAll);
 					if (lis.length > settings.slideBy) {
@@ -104,19 +102,17 @@ Unrestricted. This script is free for both personal and commercial use.
 					var _next = jQuery(".next > a", viewAll);
 					var _back = jQuery(".back > a", viewAll);
 					var liWidth = jQuery(lis[0]).width();
+					var totalWidth = liWidth * lis.length; 
 					
 					_next.click(function(){
 						if (!animating) {
 							animating = true;
 							offsetLeft = parseInt(_this.css("left")) - (liWidth * settings.slideBy);
-							if (offsetLeft + _this.width() > 0) {
+							if (offsetLeft + _this.width() > 0 && offsetLeft <= totalWidth) {
 								_back.show();
 								_this.animate({
 									left: offsetLeft
-								}, settings.speed, function(){
-									if (parseInt(_this.css("left")) + _this.width() <= liWidth * settings.slideBy) {
-									}
-								});
+								}, settings.speed);
 							}
 							animating = false;
 						}
@@ -131,10 +127,7 @@ Unrestricted. This script is free for both personal and commercial use.
 								_next.show();
 								_this.animate({
 									left: offsetRight
-								}, settings.speed, function(){
-									if (parseInt(_this.css("left")) == 0) {
-									}
-								});
+								}, settings.speed);
 							}
 							animating = false;
 						}
