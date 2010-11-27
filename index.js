@@ -148,7 +148,10 @@ Unrestricted. This script is free for both personal and commercial use.
 			var slideshow = {
 				
 				init: function(){
-					this.on();
+					this.attach();
+					setTimeout(function(){
+						slideshow.on();
+					}, settings.slideShowDelay);
 				},
 				
 				on: function(){
@@ -169,6 +172,19 @@ Unrestricted. This script is free for both personal and commercial use.
 					}
 					current.removeClass('selected');
 					container.set(next);
+				},
+				
+				attach: function(){
+					
+					var that = jQuery(_this).parent("div.accessible_news_slider");
+					that.hover(function(){
+						// pause the slideshow on hover
+						slideshow.off();
+					}, function (){
+						// resume slideshow on mouseout
+						slideshow.on();
+					});
+					
 				}
 				
 			};
@@ -177,20 +193,16 @@ Unrestricted. This script is free for both personal and commercial use.
 			container.init();
 			// pagination setup
 			pagination.init();
-			// set delay for the slideshow
-			setTimeout(function() { slideshow.init(); }, settings.slideShowDelay);
+			// slideshow setup
+			slideshow.init();
 			// append hover every to each element to update container content
 			lis.hover(function(){
-				// pause the slideshow on hover
-				slideshow.off();
 				lis.removeClass('selected');
 				// set container contect to hovered li
 				container.set(jQuery(this));
 			}, function (){
-				// resume slideshow on mouseout
-				slideshow.on();
 				current.parent().css('backgroundColor', 'transparent');
-			})
+			});
 
 		});
 	};
