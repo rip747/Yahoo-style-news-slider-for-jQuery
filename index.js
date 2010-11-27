@@ -39,7 +39,7 @@ Unrestricted. This script is free for both personal and commercial use.
 			
 			settings = jQuery.extend(defaults, settings);
 			var _this = jQuery(this);
-			var lis = _this.children();
+			var stories = _this.children();
 			var intervalId;
 			
 			var container = {
@@ -48,7 +48,7 @@ Unrestricted. This script is free for both personal and commercial use.
 				_container: "<div class=\"container\"></div>",
 				_headline: jQuery("<div class='headline'></div>").html(["<p><strong>", settings.title, "</strong> ", settings.subtitle, "</p>"].join("")),
 				_content: jQuery("<div class='content'></div>"),
-				_first: jQuery(lis[0]),
+				_first: jQuery(stories[0]),
 				
 				init: function(){
 					// wrap the ul with our div class and assigned theme
@@ -56,7 +56,7 @@ Unrestricted. This script is free for both personal and commercial use.
 					// our container where we show the image and news item
 					_this.before(this._container);
 					// set the width of the container
-					_this.css("width", (lis.length * this._first.width()));
+					_this.css("width", (stories.length * this._first.width()));
 					this.append(this._headline);
 					this.append(this._content);
 					this.set(this._first);
@@ -71,17 +71,17 @@ Unrestricted. This script is free for both personal and commercial use.
 					return _this.prev("div.container");
 				},
 				
-				set: function(li){
+				set: function(story){
 					var container = this.get();
 					var _content = jQuery("div.content", container);
 					var img = jQuery('<img></img>');
 					var para = jQuery('<div></div>');
-					li.addClass('selected');
+					story.addClass('selected');
 					_content.empty();
-					img.attr('src', jQuery('img', li).attr('src'));
-					var title = jQuery('p.title a', li);
+					img.attr('src', jQuery('img', story).attr('src'));
+					var title = jQuery('p.title a', story);
 					title = title.attr('title') || title.text();
-					para.html("<h1>" + title + "</h1>" + "<p class='paraText'>" + jQuery('p.description', li).html() + "</p>");
+					para.html("<h1>" + title + "</h1>" + "<p class='paraText'>" + jQuery('p.description', story).html() + "</p>");
 					_content.append(img);
 					_content.append(para);
 				}
@@ -90,11 +90,11 @@ Unrestricted. This script is free for both personal and commercial use.
 			
 			var pagination = {
 			
-				_viewAll: ["<div class=\"view_all\"><div class=\"count\"><span>", lis.length, " total</span></div></div>"].join(""),
+				_viewAll: ["<div class=\"view_all\"><div class=\"count\"><span>", stories.length, " total</span></div></div>"].join(""),
 
 				init: function(){
 					_this.after(this._viewAll);
-					if (lis.length > settings.slideBy) {
+					if (stories.length > settings.slideBy) {
 						this.draw();
 					}
 				},
@@ -109,14 +109,14 @@ Unrestricted. This script is free for both personal and commercial use.
 					
 					var _next = jQuery(".next > a", viewAll);
 					var _back = jQuery(".back > a", viewAll);
-					var liWidth = jQuery(lis[0]).width();
-					var slideByWidth = liWidth * settings.slideBy;
-					var totalWidth = liWidth * lis.length; 
+					var storyWidth = jQuery(stories[0]).width();
+					var slideByWidth = storyWidth * settings.slideBy;
+					var totalWidth = storyWidth * stories.length; 
 					
 					_next.click(function(){
 						if (!animating) {
 							animating = true;
-							offsetLeft = parseInt(_this.css("left")) - (slideByWidth);
+							var offsetLeft = parseInt(_this.css("left")) - (slideByWidth);
 							if (offsetLeft + _this.width() > 0 && offsetLeft <= totalWidth) {
 								_this.animate({
 									left: offsetLeft
@@ -130,7 +130,7 @@ Unrestricted. This script is free for both personal and commercial use.
 					_back.click(function(){
 						if (!animating) {
 							animating = true;
-							offsetRight = parseInt(_this.css("left")) + (slideByWidth);
+							var offsetRight = parseInt(_this.css("left")) + (slideByWidth);
 							if (offsetRight + _this.width() <= _this.width()) {
 								_this.animate({
 									left: offsetRight
@@ -168,7 +168,7 @@ Unrestricted. This script is free for both personal and commercial use.
 					var next = current.next("li");
 					if (!next.length)
 					{
-						next = jQuery(lis[0]);
+						next = jQuery(stories[0]);
 					}
 					current.removeClass('selected');
 					container.set(next);
@@ -196,8 +196,8 @@ Unrestricted. This script is free for both personal and commercial use.
 			// slideshow setup
 			slideshow.init();
 			// append hover every to each element to update container content
-			lis.hover(function(){
-				lis.removeClass('selected');
+			stories.hover(function(){
+				stories.removeClass('selected');
 				// set container contect to hovered li
 				container.set(jQuery(this));
 			}, function (){
