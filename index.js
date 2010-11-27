@@ -92,9 +92,18 @@ Unrestricted. This script is free for both personal and commercial use.
 			
 				loaded: false,
 				_animating: false,
+				_totalPages: 0,
+				_currentPage: 1,
+				_storyWidth: 0,
+				_slideByWidth: 0,
+				_totalWidth: 0,
 
 				init: function(){
 					if (stories.length > settings.slideBy) {
+						this._totalPages = Math.ceil(stories.length / settings.slideBy);
+						this._storyWidth = jQuery(stories[0]).width();
+						this._slideByWidth = this._storyWidth * settings.slideBy;
+						this._totalWidth = this._storyWidth * stories.length;
 						this.draw();
 						this.loaded = true;
 					}
@@ -107,38 +116,55 @@ Unrestricted. This script is free for both personal and commercial use.
 					
 					var _next = jQuery(".next > a", _viewAll);
 					var _back = jQuery(".back > a", _viewAll);
-					var storyWidth = jQuery(stories[0]).width();
-					var slideByWidth = storyWidth * settings.slideBy;
-					var totalWidth = storyWidth * stories.length; 
 					
 					_next.click(function(){
-						if (!this._animating) {
-							this._animating = true;
-							var offsetLeft = parseInt(_this.css("left")) - (slideByWidth);
-							if (offsetLeft + _this.width() > 0 && offsetLeft <= totalWidth) {
-								_this.animate({
-									left: offsetLeft
-								}, settings.speed);
-							}
-							this._animating = false;
-						}
+						
+						var page = pagination._currentPage + 1;
+						pagination.to(page);
 						return false;
+						
 					});
 					
 					_back.click(function(){
-						if (!this._animating) {
-							this._animating = true;
-							var offsetRight = parseInt(_this.css("left")) + (slideByWidth);
-							if (offsetRight + _this.width() <= _this.width()) {
-								_this.animate({
-									left: offsetRight
-								}, settings.speed);
-							}
-							this._animating = false;
-						}
+						
+						var page = pagination._currentPage - 1;
+						pagination.to(page);
 						return false;
+						
 					});
+
+				},
+				
+				to: function(page){
+
+					if(this._animating){
+						return;
+					}
+
+					this._animating = true;
 					
+					if(page >= this._totalPages)
+					{
+						page = this._totalPages;
+					}
+					
+					if (page <= 1)
+					{
+						page = 1;
+					}
+
+					var _move = false;
+					var _left = parseInt(_this.css("left"));
+					var _offset = (page * this._slideByWidth) - this._slideByWidth;
+					_left = (_offset * -1);
+						
+					_this.animate({
+						left: _left
+					}, settings.speed);
+
+					this._currentPage = page;
+					this._animating = false;
+						
 				}
 
 			};
@@ -164,12 +190,27 @@ Unrestricted. This script is free for both personal and commercial use.
 					
 					var current = jQuery("li.selected", _this);
 					var next = current.next("li");
+					var page = 0;
+					var storyIndex = 0;
+					var storyMod = 0;
+					var _page = 0;
 					if (!next.length)
 					{
 						next = jQuery(stories[0]);
+						page = 1;
 					}
+					storyIndex = stories.index(next);
+					storyMod = (storyIndex) % settings.slideBy;
+					
+					if (storyMod === 0){
+						page = (Math.ceil(storyIndex / settings.slideBy)) + 1;
+					}
+
 					current.removeClass('selected');
 					container.set(next);
+					if(page > 0){
+						pagination.to(page);
+					}
 				},
 				
 				attach: function(){
