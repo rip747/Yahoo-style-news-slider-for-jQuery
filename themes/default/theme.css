@@ -88,6 +88,7 @@ div.accessible_news_slider.business_as_usual .controls a {
 	height: 12px;
 	text-indent: -9999px;
 	background: no-repeat bottom center;
+	*float:left;
 }
 
 div.accessible_news_slider.business_as_usual .back a {
