@@ -8,21 +8,17 @@
 <link type="text/css" rel="stylesheet" href="themes/index.css"/>
 <link type="text/css" rel="stylesheet" href="themes/default/theme.css"/>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/jquery-ui.min.js"></script>
 <script type="text/javascript" src="index.js"></script>
 <script type="text/javascript">
 // when the DOM is ready, convert the feed anchors into feed content
 jQuery(document).ready(function() {
 
 
-          jQuery('#newsslider').accessNews({
-            headline : "Master Multimedia news",
-            speed : "slow",
-            slideBy : 4
-          });
+          jQuery('#newsslider').accessNews();
 
           jQuery('#newsslider2').accessNews({
-            headline : "something else",
+            title : "BREAKING NEWS:",
+            subtitle:"stories from the internet",
             speed : "slow",
             slideBy : 4,
             slideShowInterval: 2000

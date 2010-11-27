@@ -15,13 +15,13 @@ Unrestricted. This script is free for both personal and commercial use.
 	
 		var defaults = {
 			// title for the display
-			headline: "TODAY NEWS:",
+			title: "TODAY NEWS:",
+			// subtitle for the display
+			subtitle: "November 27 2010",
 			// number of slides to advance when pagnating
 			slideBy: 4,
 			// the speed for the pagination
 			speed: "normal",
-			// a valid jquery ui date format
-			dateFormat: "MM dd yy",
 			// slideshow interval
 			slideShowInterval: 5000,
 			// delay before slide show begins
@@ -46,7 +46,7 @@ Unrestricted. This script is free for both personal and commercial use.
 			
 				_wrapper: "<div class=\"accessible_news_slider " + settings.theme + "\"></div>",
 				_container: "<div class=\"container\"></div>",
-				_date: jQuery("<div class='date'></div>").html(["<p><strong>", settings.headline, "</strong> ", formatDate(settings.dateFormat), "</p>"].join("")),
+				_headline: jQuery("<div class='headline'></div>").html(["<p><strong>", settings.title, "</strong> ", settings.subtitle, "</p>"].join("")),
 				_content: jQuery("<div class='content'></div>"),
 				_first: jQuery(lis[0]),
 				
@@ -57,7 +57,7 @@ Unrestricted. This script is free for both personal and commercial use.
 					_this.before(this._container);
 					// set the width of the container
 					_this.css("width", (lis.length * this._first.width()));
-					this.append(this._date);
+					this.append(this._headline);
 					this.append(this._content);
 					this.set(this._first);
 				},
