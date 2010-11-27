@@ -90,59 +90,57 @@ Unrestricted. This script is free for both personal and commercial use.
 			
 			var pagination = {
 			
-				_viewAll: ["<div class=\"view_all\"><div class=\"count\"><span>", stories.length, " total</span></div></div>"].join(""),
+				loaded: false,
+				_animating: false,
 
 				init: function(){
-					_this.after(this._viewAll);
 					if (stories.length > settings.slideBy) {
 						this.draw();
+						this.loaded = true;
 					}
 				},
 				
 				draw: function(){
 				
-					var animating = false;
-					var viewAll = _this.next("div.view_all");
-					var nextBackLinks = "<div class=\"controls\"><span class=\"back\"><a href=\"#\" title=\"Back\">&lt;&lt; Back</a></span><span class=\"next\"><a href=\"#\" title=\"Next\">Next &gt;&gt;</a></span></div>";
+					var _viewAll = jQuery("<div class=\"view_all\"></div>").html(["<div class=\"count\"><span>", stories.length, " total</span></div><div class=\"controls\"><span class=\"back\"><a href=\"#\" title=\"Back\">&lt;&lt; Back</a></span><span class=\"next\"><a href=\"#\" title=\"Next\">Next &gt;&gt;</a></span></div>"].join(""));
+					_this.after(_viewAll);
 					
-					viewAll.append(nextBackLinks);
-					
-					var _next = jQuery(".next > a", viewAll);
-					var _back = jQuery(".back > a", viewAll);
+					var _next = jQuery(".next > a", _viewAll);
+					var _back = jQuery(".back > a", _viewAll);
 					var storyWidth = jQuery(stories[0]).width();
 					var slideByWidth = storyWidth * settings.slideBy;
 					var totalWidth = storyWidth * stories.length; 
 					
 					_next.click(function(){
-						if (!animating) {
-							animating = true;
+						if (!this._animating) {
+							this._animating = true;
 							var offsetLeft = parseInt(_this.css("left")) - (slideByWidth);
 							if (offsetLeft + _this.width() > 0 && offsetLeft <= totalWidth) {
 								_this.animate({
 									left: offsetLeft
 								}, settings.speed);
 							}
-							animating = false;
+							this._animating = false;
 						}
 						return false;
 					});
 					
 					_back.click(function(){
-						if (!animating) {
-							animating = true;
+						if (!this._animating) {
+							this._animating = true;
 							var offsetRight = parseInt(_this.css("left")) + (slideByWidth);
 							if (offsetRight + _this.width() <= _this.width()) {
 								_this.animate({
 									left: offsetRight
 								}, settings.speed);
 							}
-							animating = false;
+							this._animating = false;
 						}
 						return false;
 					});
 					
 				}
-				
+
 			};
 			
 			var slideshow = {
