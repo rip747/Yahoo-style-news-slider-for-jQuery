@@ -252,6 +252,8 @@ Unrestricted. This script is free for both personal and commercial use.
 			stories.hover(function(){
 				// set container contect to hovered li
 				container.set(jQuery(this));
+			}, function(){
+				// do nothing
 			});
 
 		});
