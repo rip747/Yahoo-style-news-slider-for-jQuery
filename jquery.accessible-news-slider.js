@@ -35,8 +35,7 @@ Unrestricted. This script is free for both personal and commercial use.
 			settings = jQuery.extend(defaults, settings);
 			var _this = jQuery(this);
 			var stories = _this.children();
-			var intervalIds = [];
-			var intervalId = new Date().getTime(); 
+			var intervalId = null; 
 			
 			var container = {
 			
@@ -183,18 +182,24 @@ Unrestricted. This script is free for both personal and commercial use.
 				init: function(){
 					this.attach();
 					setTimeout(function(){
+						intervalId = "";
 						slideshow.on();
 					}, settings.slideShowDelay);
 				},
 				
 				on: function(){
-					intervalId[intervalId] = setInterval(function(){
+					if (!intervalId) {
+						intervalId = setInterval(function(){
 							slideshow.slide();
-						} , settings.slideShowInterval );
+						}, settings.slideShowInterval);
+					}
 				},
 				
 				off: function(){
-					clearInterval(intervalId[intervalId]);
+					if (intervalId) {
+						clearInterval(intervalId);
+						intervalId = null;
+					}
 				},
 				
 				slide: function(){
