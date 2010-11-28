@@ -153,9 +153,10 @@ Unrestricted. This script is free for both personal and commercial use.
 						page = 1;
 					}
 
+					var _startAt = (page * settings.slideBy) - settings.slideBy;
 					var _left = parseInt(_this.css("left"));
 					var _offset = (page * this._slideByWidth) - this._slideByWidth;
-					startAt.html(((page * settings.slideBy) - settings.slideBy) + 1);
+					startAt.html(_startAt + 1);
 					endAt.html(page * settings.slideBy);
 					
 					_left = (_offset * -1);
@@ -163,6 +164,11 @@ Unrestricted. This script is free for both personal and commercial use.
 					_this.animate({
 						left: _left
 					}, settings.speed);
+					
+					// when paginating set the active story to the first
+					// story on the page
+					
+					container.set(jQuery(stories[_startAt]));
 
 					this._currentPage = page;
 					this._animating = false;
