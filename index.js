@@ -194,22 +194,27 @@ Unrestricted. This script is free for both personal and commercial use.
 					var storyIndex = 0;
 					var storyMod = 0;
 					var _page = 0;
+					
 					if (!next.length)
 					{
 						next = jQuery(stories[0]);
 						page = 1;
 					}
-					storyIndex = stories.index(next);
-					storyMod = (storyIndex) % settings.slideBy;
 					
-					if (storyMod === 0){
-						page = (Math.ceil(storyIndex / settings.slideBy)) + 1;
-					}
-
 					current.removeClass('selected');
 					container.set(next);
-					if(page > 0){
-						pagination.to(page);
+					
+					if (pagination.loaded) {
+						storyIndex = stories.index(next);
+						storyMod = (storyIndex) % settings.slideBy;
+						
+						if (storyMod === 0) {
+							page = (Math.ceil(storyIndex / settings.slideBy)) + 1;
+						}
+						
+						if (page > 0 && pagination.loaded) {
+							pagination.to(page);
+						}
 					}
 				},
 				
