@@ -244,8 +244,6 @@ Unrestricted. This script is free for both personal and commercial use.
 				stories.removeClass('selected');
 				// set container contect to hovered li
 				container.set(jQuery(this));
-			}, function (){
-				current.parent().css('backgroundColor', 'transparent');
 			});
 
 		});
