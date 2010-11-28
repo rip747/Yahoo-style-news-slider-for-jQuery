@@ -111,7 +111,7 @@ Unrestricted. This script is free for both personal and commercial use.
 				
 				draw: function(){
 				
-					var _viewAll = jQuery("<div class=\"view_all\"></div>").html(["<div class=\"count\"><span>", stories.length, " total</span></div><div class=\"controls\"><span class=\"back\"><a href=\"#\" title=\"Back\">&lt;&lt; Back</a></span><span class=\"next\"><a href=\"#\" title=\"Next\">Next &gt;&gt;</a></span></div>"].join(""));
+					var _viewAll = jQuery("<div class=\"view_all\"></div>").html(["<div class=\"count\"><span class=\"startAt\">1</span> - <span class=\"endAt\">", settings.slideBy, "</span> of ", stories.length, " total</span></div><div class=\"controls\"><span class=\"back\"><a href=\"#\" title=\"Back\">&lt;&lt; Back</a></span><span class=\"next\"><a href=\"#\" title=\"Next\">Next &gt;&gt;</a></span></div>"].join(""));
 					_this.after(_viewAll);
 					
 					var _next = jQuery(".next > a", _viewAll);
@@ -140,6 +140,10 @@ Unrestricted. This script is free for both personal and commercial use.
 					if(this._animating){
 						return;
 					}
+					
+					var viewAll = _this.next(".view_all");
+					var startAt = jQuery(".startAt", viewAll);
+					var endAt = jQuery(".endAt", viewAll);
 
 					this._animating = true;
 					
@@ -153,9 +157,11 @@ Unrestricted. This script is free for both personal and commercial use.
 						page = 1;
 					}
 
-					var _move = false;
 					var _left = parseInt(_this.css("left"));
 					var _offset = (page * this._slideByWidth) - this._slideByWidth;
+					startAt.html(((page * settings.slideBy) - settings.slideBy) + 1);
+					endAt.html(page * settings.slideBy);
+					
 					_left = (_offset * -1);
 						
 					_this.animate({
