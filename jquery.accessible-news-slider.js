@@ -71,12 +71,13 @@ Unrestricted. This script is free for both personal and commercial use.
 					var _content = jQuery("div.content", container);
 					var img = jQuery('<img></img>');
 					var para = jQuery('<div></div>');
-					story.addClass('selected');
-					_content.empty();
-					img.attr('src', jQuery('img', story).attr('src'));
 					var title = jQuery('p.title a', story);
+					img.attr('src', jQuery('img', story).attr('src'));
 					title = title.attr('title') || title.text();
 					para.html("<h1>" + title + "</h1>" + "<p class='paraText'>" + jQuery('p.description', story).html() + "</p>");
+					stories.removeClass('selected');
+					story.addClass('selected');
+					_content.empty();
 					_content.append(img);
 					_content.append(para);
 				}
@@ -201,8 +202,7 @@ Unrestricted. This script is free for both personal and commercial use.
 						next = jQuery(stories[0]);
 						page = 1;
 					}
-					
-					current.removeClass('selected');
+
 					container.set(next);
 					
 					if (pagination.loaded) {
@@ -242,7 +242,6 @@ Unrestricted. This script is free for both personal and commercial use.
 			slideshow.init();
 			// append hover every to each element to update container content
 			stories.hover(function(){
-				stories.removeClass('selected');
 				// set container contect to hovered li
 				container.set(jQuery(this));
 			});
