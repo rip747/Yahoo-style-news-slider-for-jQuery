@@ -187,7 +187,9 @@ Unrestricted. This script is free for both personal and commercial use.
 				},
 				
 				on: function(){
-					intervalId = setInterval( this.slide, settings.slideShowInterval );
+					intervalId = setInterval(function(){
+							slideshow.slide();
+						} , settings.slideShowInterval );
 				},
 				
 				off: function(){
