@@ -30,11 +30,6 @@ Unrestricted. This script is free for both personal and commercial use.
 			theme: "business_as_usual"
 		};
 		
-		// call jquery-ui to format the date display
-		var formatDate = function(format){
-			return jQuery.datepicker.formatDate(format, new Date());
-		}
-		
 		return this.each(function(){
 			
 			settings = jQuery.extend(defaults, settings);
