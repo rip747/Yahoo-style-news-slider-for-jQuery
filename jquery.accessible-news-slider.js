@@ -203,7 +203,6 @@ Unrestricted. This script is free for both personal and commercial use.
 					var page = 0;
 					var storyIndex = 0;
 					var storyMod = 0;
-					var _page = 0;
 					
 					if (!next.length)
 					{
@@ -221,7 +220,7 @@ Unrestricted. This script is free for both personal and commercial use.
 							page = (Math.ceil(storyIndex / settings.slideBy)) + 1;
 						}
 						
-						if (page > 0 && pagination.loaded) {
+						if (page > 0) {
 							pagination.to(page);
 						}
 					}
