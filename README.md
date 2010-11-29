@@ -44,3 +44,7 @@ Basically mimics Yahoo's (http://www.yahoo.com) content slider.
 		slideShowInterval: 10000,
 		slideShowDelay: 10000
 	});
+	
+## Demos
+
+Demos can be found [here](http://rip747.github.com/Yahoo-style-news-slider-for-jQuery/).
