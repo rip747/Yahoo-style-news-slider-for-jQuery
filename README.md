@@ -30,6 +30,19 @@ Basically mimics Yahoo's (http://www.yahoo.com) content slider.
 	// theme
 	theme: "business_as_usual"
 
+##Installation
+
+Load the desired theme, jquery and plugin within your page's head section: 
+
+	<!-- base theme css files -->
+	<link type="text/css" rel="stylesheet" href="themes/base.css"/>
+	<!-- desired theme -->
+	<link type="text/css" rel="stylesheet" href="themes/default/theme.css"/>
+	<!-- jquery itself -->
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
+	<!-- plugin -->
+	<script type="text/javascript" src="jquery.accessible-news-slider.js"></script>
+
 ##Usage
 
 	// use default
