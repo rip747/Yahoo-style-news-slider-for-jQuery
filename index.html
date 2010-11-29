@@ -13,24 +13,23 @@
 // when the DOM is ready, convert the feed anchors into feed content
 jQuery(document).ready(function() {
 
+	jQuery('#newsslider').accessNews();
 
-          jQuery('#newsslider').accessNews();
-
-          jQuery('#newsslider2').accessNews({
-            title : "BREAKING NEWS:",
-            subtitle:"stories from the internet",
-            speed : "slow",
-            slideBy : 4,
-            slideShowInterval: 10000,
-            slideShowDelay: 10000
-          });
+	jQuery('#newsslider2').accessNews({
+		title : "BREAKING NEWS:",
+		subtitle:"stories from the internet",
+		speed : "slow",
+		slideBy : 4,
+		slideShowInterval: 10000,
+		slideShowDelay: 10000
+	});
 
 });
 </script>
 </head>
 <body>
 <noscript><strong>Please Note:</strong> You may have disabled JavaScript and/or CSS. Although this news content will be accessible, certain functionality is unavailable.</noscript>
-
+	<h1>Yahoo style news slider for jQuery Demos</h1>
 	<ul id="newsslider">
 		<li>
 			<a href="http://www.mmm.unifi.it/primo-piano/intervista-con-luca-farulli"><img src="graphics/luca-farulli-master-multimedia.jpg" width="82" height="30" alt="Luca Farulli" /></a>
