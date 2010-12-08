@@ -35,7 +35,6 @@ Unrestricted. This script is free for both personal and commercial use.
 			settings = jQuery.extend(defaults, settings);
 			var _this = jQuery(this);
 			var stories = _this.children();
-			var intervalId = null;
 			var theQueue = $({});
 			var intervalId = Math.random()*1000000;
 			
