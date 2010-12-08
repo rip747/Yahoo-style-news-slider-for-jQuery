@@ -35,11 +35,14 @@ Unrestricted. This script is free for both personal and commercial use.
 			settings = jQuery.extend(defaults, settings);
 			var _this = jQuery(this);
 			var stories = _this.children();
-			var intervalId = null; 
+			var intervalId = null;
+			var theQueue = $({});
+			var intervalId = Math.random()*1000000;
 			
 			var container = {
 			
 				_wrapper: "<div class=\"accessible_news_slider " + settings.theme + "\"></div>",
+				_storywrapper: "<div class=\"storywrapper\"></div>",
 				_container: "<div class=\"container\"></div>",
 				_headline: jQuery("<div class='headline'></div>").html(["<p><strong>", settings.title, "</strong> ", settings.subtitle, "</p>"].join("")),
 				_content: jQuery("<div class='content'></div>"),
@@ -52,9 +55,20 @@ Unrestricted. This script is free for both personal and commercial use.
 					_this.before(this._container);
 					// set the width of the container
 					_this.css("width", (stories.length * this._first.width()));
-					this.append(this._headline);
+					if (settings.title.length)
+					{
+						this.append(this._headline);
+					}
 					this.append(this._content);
 					this.set(this._first);
+					
+					// pagination setup
+					pagination.init();
+					
+					// slideshow setup
+					slideshow.init();
+					
+					_this.wrap(this._storywrapper);
 				},
 				
 				append: function(content){
@@ -137,11 +151,15 @@ Unrestricted. This script is free for both personal and commercial use.
 						return;
 					}
 					
-					var viewAll = _this.next(".view_all");
+					// we're animating! 
+					this._animating = true;
+					
+					// turn off slideshow when animating
+					slideshow.off();
+					
+					var viewAll = _this.parent("div").next(".view_all");
 					var startAt = jQuery(".startAt", viewAll);
 					var endAt = jQuery(".endAt", viewAll);
-
-					this._animating = true;
 					
 					if(page >= this._totalPages)
 					{
@@ -154,10 +172,15 @@ Unrestricted. This script is free for both personal and commercial use.
 					}
 
 					var _startAt = (page * settings.slideBy) - settings.slideBy;
+					var _endAt = (page * settings.slideBy);
+					if (_endAt > stories.length)
+					{
+						_endAt = stories.length;
+					}
 					var _left = parseInt(_this.css("left"));
 					var _offset = (page * this._slideByWidth) - this._slideByWidth;
 					startAt.html(_startAt + 1);
-					endAt.html(page * settings.slideBy);
+					endAt.html(_endAt);
 					
 					_left = (_offset * -1);
 						
@@ -167,10 +190,14 @@ Unrestricted. This script is free for both personal and commercial use.
 					
 					// when paginating set the active story to the first
 					// story on the page
-					
 					container.set(jQuery(stories[_startAt]));
 
 					this._currentPage = page;
+					
+					// turn back on slideshow
+					slideshow.on();
+					
+					// no more animating :(
 					this._animating = false;
 						
 				}
@@ -181,32 +208,35 @@ Unrestricted. This script is free for both personal and commercial use.
 				
 				init: function(){
 					this.attach();
-					setTimeout(function(){
-						intervalId = "";
+					theQueue.delay(settings.slideShowDelay).queue(function(next){
 						slideshow.on();
-					}, settings.slideShowDelay);
+						next();
+					});
 				},
 				
 				on: function(){
-					if (!intervalId) {
+					theQueue.delay(settings.slideShowInterval).queue(function(next){
 						intervalId = setInterval(function(){
 							slideshow.slide();
 						}, settings.slideShowInterval);
-					}
+						next();
+					});
 				},
 				
 				off: function(){
-					if (intervalId) {
-						clearInterval(intervalId);
-						intervalId = null;
-					}
+					theQueue.clearQueue();
+					clearInterval(intervalId);
 				},
 				
 				slide: function(){
-					
+				
+					//currently selected story
 					var current = jQuery("li.selected", _this);
+					// the next story 
 					var next = current.next("li");
+					// page number
 					var page = 0;
+					// index of the next
 					var storyIndex = 0;
 					var storyMod = 0;
 					
@@ -249,10 +279,6 @@ Unrestricted. This script is free for both personal and commercial use.
 			
 			//setup the container
 			container.init();
-			// pagination setup
-			pagination.init();
-			// slideshow setup
-			slideshow.init();
 			// append hover every to each element to update container content
 			stories.hover(function(){
 				// set container contect to hovered li
