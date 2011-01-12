@@ -27,7 +27,7 @@ Unrestricted. This script is free for both personal and commercial use.
 			// delay before slide show begins
 			slideShowDelay: 5000,
 			// theme
-			theme: "business_as_usual",
+			theme: "default",
 			// allow the pagination to wrap continuously instead of stopping when the beginning or end is reached 
 			continuousPaging : true
 		};
@@ -38,13 +38,14 @@ Unrestricted. This script is free for both personal and commercial use.
 			var _this = jQuery(this);
 			var stories = _this.children();
 			var intervalId;
+			
 			var container = {
 			
-				_wrapper: "<div class=\"accessible_news_slider " + settings.theme + "\"></div>",
-				_storywrapper: "<div class=\"storywrapper\"></div>",
-				_container: "<div class=\"container\"></div>",
-				_headline: jQuery("<div class='headline'></div>").html(["<p><strong>", settings.title, "</strong> ", settings.subtitle, "</p>"].join("")),
-				_content: jQuery("<div class='content'></div>"),
+				_wrapper: "<div class=\"jqans-wrapper " + settings.theme + "\"></div>",
+				_container: "<div class=\"jqans-container\"></div>",
+				_headline: jQuery("<div class='jqans-headline'></div>").html(["<p><strong>", settings.title, "</strong> ", settings.subtitle, "</p>"].join("")),
+				_content: jQuery("<div class='jqans-content'></div>"),
+				_stories: "<div class=\"jqans-stories\"></div>",
 				_first: jQuery(stories[0]),
 				
 				init: function(){
@@ -54,6 +55,7 @@ Unrestricted. This script is free for both personal and commercial use.
 					_this.before(this._container);
 					// set the width of the container
 					_this.css("width", (stories.length * this._first.width()));
+
 					if (settings.title.length)
 					{
 						this.append(this._headline);
@@ -67,7 +69,8 @@ Unrestricted. This script is free for both personal and commercial use.
 					// slideshow setup
 					slideshow.init();
 					
-					_this.wrap(this._storywrapper);
+					_this.wrap(this._stories);
+
 				},
 				
 				append: function(content){
@@ -76,18 +79,18 @@ Unrestricted. This script is free for both personal and commercial use.
 				
 				// returns the main container
 				get: function(){
-					return _this.prev("div.container");
+					return _this.prev("div.jqans-container");
 				},
 				
 				set: function(story){
 					var container = this.get();
-					var _content = jQuery("div.content", container);
+					var _content = jQuery("div.jqans-content", container);
 					var img = jQuery('<img></img>');
 					var para = jQuery('<div></div>');
 					var title = jQuery('p.title a', story);
 					img.attr('src', jQuery('img', story).attr('src'));
 					title = title.attr('title') || title.text();
-					para.html("<h1>" + title + "</h1>" + "<p class='paraText'>" + jQuery('p.description', story).html() + "</p>");
+					para.html("<h1>" + title + "</h1>" + "<p>" + jQuery('p.description', story).html() + "</p>");
 					stories.removeClass('selected');
 					story.addClass('selected');
 					_content.empty();
@@ -105,14 +108,12 @@ Unrestricted. This script is free for both personal and commercial use.
 				_currentPage: 1,
 				_storyWidth: 0,
 				_slideByWidth: 0,
-				_totalWidth: 0,
 
 				init: function(){
 					if (stories.length > settings.slideBy) {
 						this._totalPages = Math.ceil(stories.length / settings.slideBy);
 						this._storyWidth = jQuery(stories[0]).width();
 						this._slideByWidth = this._storyWidth * settings.slideBy;
-						this._totalWidth = this._storyWidth * stories.length;
 						this.draw();
 						this.loaded = true;
 					}
@@ -120,11 +121,11 @@ Unrestricted. This script is free for both personal and commercial use.
 				
 				draw: function(){
 				
-					var _viewAll = jQuery("<div class=\"view_all\"></div>").html(["<div class=\"count\"><span class=\"startAt\">1</span> - <span class=\"endAt\">", settings.slideBy, "</span> of ", stories.length, " total</span></div><div class=\"controls\"><span class=\"back\"><a href=\"#\" title=\"Back\">&lt;&lt; Back</a></span><span class=\"next\"><a href=\"#\" title=\"Next\">Next &gt;&gt;</a></span></div>"].join(""));
+					var _viewAll = jQuery("<div class=\"jqans-pagination\"></div>").html(["<div class=\"jqans-pagination-count\"><span class=\"jqans-pagination-count-start\">1</span> - <span class=\"jqans-pagination-count-end\">", settings.slideBy, "</span> of <span class=\"jqans-pagination-count-total\">", stories.length, "</span> total</div><div class=\"jqans-pagination-controls\"><span class=\"jqans-pagination-controls-back\"><a href=\"#\" title=\"Back\">&lt;&lt; Back</a></span><span class=\"jqans-pagination-controls-next\"><a href=\"#\" title=\"Next\">Next &gt;&gt;</a></span></div>"].join(""));
 					_this.after(_viewAll);
 					
-					var _next = jQuery(".next > a", _viewAll);
-					var _back = jQuery(".back > a", _viewAll);
+					var _next = jQuery(".jqans-pagination-controls-next > a", _viewAll);
+					var _back = jQuery(".jqans-pagination-controls-back > a", _viewAll);
 					
 					_next.click(function(){
 						
@@ -156,9 +157,9 @@ Unrestricted. This script is free for both personal and commercial use.
 					// turn off slideshow when animating
 					slideshow.off();
 					
-					var viewAll = _this.parent("div").next(".view_all");
-					var startAt = jQuery(".startAt", viewAll);
-					var endAt = jQuery(".endAt", viewAll);
+					var viewAll = _this.parent("div").next(".jqans-pagination");
+					var startAt = jQuery(".jqans-pagination-count-start", viewAll);
+					var endAt = jQuery(".jqans-pagination-count-end", viewAll);
 					
 					if(page > this._totalPages)
 					{
@@ -177,7 +178,7 @@ Unrestricted. This script is free for both personal and commercial use.
 						_endAt = stories.length;
 					}
 					var _left = parseInt(_this.css("left"));
-					var _offset = (page * this._slideByWidth) - this._slideByWidth;
+					var _offset = (page * this._slideByWidth) - this._slideByWidth; 
 					startAt.html(_startAt + 1);
 					endAt.html(_endAt);
 					
@@ -259,7 +260,7 @@ Unrestricted. This script is free for both personal and commercial use.
 				
 				attach: function(){
 					
-					var that = jQuery(_this).parent("div.accessible_news_slider");
+					var that = jQuery(_this).parent("div.jqans-wrapper");
 					that.hover(function(){
 						// pause the slideshow on hover
 						slideshow.off();

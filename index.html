@@ -13,15 +13,17 @@
 // when the DOM is ready, convert the feed anchors into feed content
 jQuery(document).ready(function() {
 
-	jQuery('#newsslider').accessNews();
+	jQuery('#newsslider').accessNews({
+	
+	});
 
 	jQuery('#newsslider2').accessNews({
 		title : "BREAKING NEWS:",
 		subtitle:"stories from the internet",
 		speed : "slow",
 		slideBy : 4,
-		slideShowInterval: 10000,
-		slideShowDelay: 10000
+		slideShowInterval: 100000,
+		slideShowDelay: 100000
 	});
 
 });
