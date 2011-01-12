@@ -28,7 +28,9 @@ Basically mimics Yahoo's (http://www.yahoo.com) content slider.
 	// delay before slide show begins
 	slideShowDelay: 5000,
 	// theme
-	theme: "business_as_usual"
+	theme: "business_as_usual",
+	// allow the pagination to wrap continuously instead of stopping when the beginning or end is reached 
+	continuousPaging : true
 
 ##Installation
 

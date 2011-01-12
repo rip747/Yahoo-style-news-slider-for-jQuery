@@ -27,7 +27,9 @@ Unrestricted. This script is free for both personal and commercial use.
 			// delay before slide show begins
 			slideShowDelay: 5000,
 			// theme
-			theme: "business_as_usual"
+			theme: "business_as_usual",
+			// allow the pagination to wrap continuously instead of stopping when the beginning or end is reached 
+			continuousPaging : true
 		};
 		
 		return this.each(function(){
@@ -160,14 +162,14 @@ Unrestricted. This script is free for both personal and commercial use.
 					var startAt = jQuery(".startAt", viewAll);
 					var endAt = jQuery(".endAt", viewAll);
 					
-					if(page >= this._totalPages)
+					if(page > this._totalPages)
 					{
-						page = this._totalPages;
+						page =  settings.continuousPaging ? 1 : this._totalPages;
 					}
 					
-					if (page <= 1)
+					if (page < 1)
 					{
-						page = 1;
+						page =  settings.continuousPaging ? this._totalPages : 1;
 					}
 
 					var _startAt = (page * settings.slideBy) - settings.slideBy;
