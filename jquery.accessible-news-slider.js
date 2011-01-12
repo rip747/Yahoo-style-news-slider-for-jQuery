@@ -37,9 +37,7 @@ Unrestricted. This script is free for both personal and commercial use.
 			settings = jQuery.extend(defaults, settings);
 			var _this = jQuery(this);
 			var stories = _this.children();
-			var theQueue = $({});
-			var intervalId = Math.random()*1000000;
-			
+			var intervalId;
 			var container = {
 			
 				_wrapper: "<div class=\"accessible_news_slider " + settings.theme + "\"></div>",
@@ -209,23 +207,20 @@ Unrestricted. This script is free for both personal and commercial use.
 				
 				init: function(){
 					this.attach();
-					theQueue.delay(settings.slideShowDelay).queue(function(next){
+					this.off();
+					intervalId = setTimeout(function(){
 						slideshow.on();
-						next();
-					});
+					}, settings.slideShowDelay);
 				},
 				
 				on: function(){
-					theQueue.delay(settings.slideShowInterval).queue(function(next){
-						intervalId = setInterval(function(){
-							slideshow.slide();
-						}, settings.slideShowInterval);
-						next();
-					});
+					this.off();
+					intervalId = setInterval(function(){
+						slideshow.slide();
+					}, settings.slideShowInterval);
 				},
 				
 				off: function(){
-					theQueue.clearQueue();
 					clearInterval(intervalId);
 				},
 				
