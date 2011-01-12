@@ -232,21 +232,17 @@ Unrestricted. This script is free for both personal and commercial use.
 					var next = current.next("li");
 					// page number
 					var page = 0;
-					// index of the next
-					var storyIndex = 0;
-					var storyMod = 0;
 					
 					if (!next.length)
 					{
 						next = jQuery(stories[0]);
 						page = 1;
 					}
-
-					container.set(next);
 					
 					if (pagination.loaded) {
-						storyIndex = stories.index(next);
-						storyMod = (storyIndex) % settings.slideBy;
+					
+						var storyIndex = stories.index(next);
+						var storyMod = (storyIndex) % settings.slideBy;
 						
 						if (storyMod === 0) {
 							page = (Math.ceil(storyIndex / settings.slideBy)) + 1;
@@ -256,6 +252,9 @@ Unrestricted. This script is free for both personal and commercial use.
 							pagination.to(page);
 						}
 					}
+					
+					container.set(next);
+					
 				},
 				
 				attach: function(){
