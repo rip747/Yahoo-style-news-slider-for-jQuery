@@ -38,9 +38,10 @@ Unrestricted. This script is free for both personal and commercial use.
 			var _this = jQuery(this);
 			var stories = _this.children();
 			var intervalId;
+			var _storyIndictor;
+			var _storyIndictors;
 			
 			var container = {
-			
 				_wrapper: "<div class=\"jqans-wrapper " + settings.theme + "\"></div>",
 				_container: "<div class=\"jqans-container\"></div>",
 				_headline: jQuery("<div class='jqans-headline'></div>").html(["<p><strong>", settings.title, "</strong> ", settings.subtitle, "</p>"].join("")),
@@ -54,14 +55,19 @@ Unrestricted. This script is free for both personal and commercial use.
 					// our container where we show the image and news item
 					_this.before(this._container);
 					// set the width of the container
-					_this.css("width", (stories.length * this._first.width()));
+					var width = (stories.length * this._first.width());
+					_this.css("width", width);
 
 					if (settings.title.length)
 					{
 						this.append(this._headline);
 					}
 					this.append(this._content);
-					this.set(this._first);
+					
+					// create the selector indictor
+					this.selector(width);
+					
+					this.set(0);
 					
 					// pagination setup
 					pagination.init();
@@ -73,17 +79,32 @@ Unrestricted. This script is free for both personal and commercial use.
 
 				},
 				
+				selector: function(width){
+					var s = "";
+					for(var i = 1; i <= stories.length; i++){
+						s += "<li><div/></li>";
+					}
+					var o = jQuery("<div class=\"jqans-stories-selector\"></div>");
+					o.append("<ul>"+ s +"</ul>");
+					_storyIndictor = jQuery(o.find("ul"));
+					_storyIndictors = _storyIndictor.children();
+					o.css("width", width);
+					_this.before(o);
+				},
+				
 				append: function(content){
 					this.get().append(content);
 				},
 				
 				// returns the main container
 				get: function(){
-					return _this.prev("div.jqans-container");
+					return _this.parents("div.jqans-wrapper").find('div.jqans-container');
 				},
 				
-				set: function(story){
+				set: function(position){
 					var container = this.get();
+					var story = jQuery(stories[position]);
+					var storyIndictor = jQuery(_storyIndictors[position]);
 					var _content = jQuery("div.jqans-content", container);
 					var img = jQuery('<img></img>');
 					var para = jQuery('<div></div>');
@@ -91,11 +112,13 @@ Unrestricted. This script is free for both personal and commercial use.
 					img.attr('src', jQuery('img', story).attr('src'));
 					title = title.attr('title') || title.text();
 					para.html("<h1>" + title + "</h1>" + "<p>" + jQuery('p.description', story).html() + "</p>");
-					stories.removeClass('selected');
-					story.addClass('selected');
 					_content.empty();
 					_content.append(img);
 					_content.append(para);
+					stories.removeClass('selected');
+					story.addClass('selected');
+					_storyIndictors.removeClass('selected');
+					storyIndictor.addClass('selected');
 				}
 				
 			};
@@ -154,9 +177,6 @@ Unrestricted. This script is free for both personal and commercial use.
 					// we're animating! 
 					this._animating = true;
 					
-					// turn off slideshow when animating
-					slideshow.off();
-					
 					var viewAll = _this.parent("div").next(".jqans-pagination");
 					var startAt = jQuery(".jqans-pagination-count-start", viewAll);
 					var endAt = jQuery(".jqans-pagination-count-end", viewAll);
@@ -188,14 +208,15 @@ Unrestricted. This script is free for both personal and commercial use.
 						left: _left
 					}, settings.speed);
 					
+					_storyIndictor.animate({
+						left: _left
+					}, settings.speed);
+					
 					// when paginating set the active story to the first
 					// story on the page
-					container.set(jQuery(stories[_startAt]));
+					container.set(_startAt);
 
 					this._currentPage = page;
-					
-					// turn back on slideshow
-					slideshow.on();
 					
 					// no more animating :(
 					this._animating = false;
@@ -240,9 +261,10 @@ Unrestricted. This script is free for both personal and commercial use.
 						page = 1;
 					}
 					
-					if (pagination.loaded) {
+					var storyIndex = stories.index(next);
 					
-						var storyIndex = stories.index(next);
+					if (pagination.loaded) {
+
 						var storyMod = (storyIndex) % settings.slideBy;
 						
 						if (storyMod === 0) {
@@ -254,7 +276,7 @@ Unrestricted. This script is free for both personal and commercial use.
 						}
 					}
 					
-					container.set(next);
+					container.set(storyIndex);
 					
 				},
 				
@@ -278,7 +300,7 @@ Unrestricted. This script is free for both personal and commercial use.
 			// append hover every to each element to update container content
 			stories.hover(function(){
 				// set container contect to hovered li
-				container.set(jQuery(this));
+				container.set(stories.index(this));
 			}, function(){
 				// do nothing
 			});

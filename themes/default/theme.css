@@ -1,18 +1,5 @@
 /* Accessible News Slider : Theme Default */
 
-body {
-	-x-system-font:none;
-	font-family:arial,helvetica,clean,sans-serif;
-	font-size:13px;
-	font-size-adjust:none;
-	font-stretch:normal;
-	font-style:normal;
-	font-variant:normal;
-	font-weight:normal;
-	line-height:1.231;
-	color:#666666;
-}
-
 /*************************************
 	Height and Width values
 	these are extremely important!!!
@@ -22,6 +9,11 @@ body {
 div.jqans-wrapper.default .jqans-stories ul,
 div.jqans-wrapper.default .jqans-stories li {
 	height: 90px;
+}
+
+div.jqans-wrapper.default .jqans-stories-selector ul,
+div.jqans-wrapper.default .jqans-stories-selector li {
+	height: 10px;
 }
 
 /* 
@@ -48,6 +40,7 @@ div.jqans-wrapper.default a {
 	text-decoration: none;
 	font-weight: normal;
 	color: #363636;
+	outline: none;
 }
 
 div.jqans-wrapper.default strong {
@@ -95,7 +88,6 @@ div.jqans-wrapper.default .jqans-content p {
 
 /* stories */
 div.jqans-wrapper.default .jqans-stories {
-	margin-top:5px;
 	background: #f3f3f3;
 }
 
@@ -123,6 +115,17 @@ div.jqans-wrapper.default .jqans-stories li p {
 
 div.jqans-wrapper.default .jqans-stories li p.title {
 	display: block;
+}
+
+div.jqans-wrapper.default .jqans-stories-selector li.selected div {
+	margin:auto;
+	height: 0px;
+	width:0px;
+	line-height:0px;
+	font-size:0px;
+	border-right: 10px solid white;
+	border-bottom: 10px solid #ce1c8e;
+	border-left: 10px solid white;
 }
 
 /* pagination */

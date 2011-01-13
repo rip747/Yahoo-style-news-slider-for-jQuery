@@ -1,5 +1,18 @@
 /* Accessible News Slider: Base styles */
 
+div.jqans-wrapper {
+	-x-system-font:none;
+	font-family:arial,helvetica,clean,sans-serif;
+	font-size:13px;
+	font-size-adjust:none;
+	font-stretch:normal;
+	font-style:normal;
+	font-variant:normal;
+	font-weight:normal;
+	line-height:1.231;
+	color:#666666;
+}
+
 div.jqans-wrapper img {
 	border: 0;
 }
