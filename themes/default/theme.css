@@ -1,93 +1,155 @@
-/* Accessible News Slider : Plugin Specific : Theme Default [ Business as Usual ] */
+/* Accessible News Slider : Theme Default */
 
-div.accessible_news_slider.business_as_usual {
+/*************************************
+	Height and Width values
+	these are extremely important!!!
+*************************************/
+
+/* the stories ul and lis must have the same height */
+div.jqans-wrapper.default .jqans-stories ul,
+div.jqans-wrapper.default .jqans-stories li {
+	height: 90px;
+}
+
+div.jqans-wrapper.default .jqans-stories-selector ul,
+div.jqans-wrapper.default .jqans-stories-selector li {
+	height: 10px;
+}
+
+/* 
+	wrapper and the container must have the same width
+	in order to get this value take the width value of
+	of story ".jqans-stories li" and times it by the 
+	number of stories you want to initially display.
+	
+	107px * 4 = 428px
+	
+ */
+div.jqans-wrapper.default,
+div.jqans-wrapper.default .jqans-container {
 	width: 428px;
+}
+
+/* width value for each story li */
+div.jqans-wrapper.default li {
+	width: 107px;
+}
+
+/* default styles */
+div.jqans-wrapper.default a {
+	text-decoration: none;
+	font-weight: normal;
+	color: #363636;
+	outline: none;
+}
+
+div.jqans-wrapper.default strong {
+	color: #000;
+}
+
+/* wrapper */
+div.jqans-wrapper.default {
 	border-left: 1px solid #ddd;
 	border-right: 1px solid #ddd;
 	border-top: 1px solid #ddd;
 	margin: 0 0 32px 0;
-	background: url(view_all_bg.gif) repeat-x bottom left;
 }
 
-div.accessible_news_slider.business_as_usual ul {
-	padding: 0;
-	margin: 0;
-	height: 90px;
-}
-div.accessible_news_slider.business_as_usual a {
-	color: #363636;
-}
-
-div.accessible_news_slider.business_as_usual .view_all {
-	border-top: 1px solid #ddd;
-	border-bottom: 1px solid #ddd;
-	margin: 0;
-	padding: 2px 2px 0 2px;
-	background: url(view_all_bg.gif) repeat-x bottom left;
-	text-align: left;
-	clear: both;
-	width: 100%;
-	overflow: hidden;
-}
-
-div.accessible_news_slider.business_as_usual li {
-	padding: 5px 0;
-	margin: 5px 0 0 0;
-	overflow: hidden;
-	width: 107px;
+/* container */
+div.jqans-wrapper.default .jqans-container { 
+	min-height: 280px; 
 	text-align: center;
-	height: 75px;
+	padding-top: 4px;
+}
+
+div.jqans-wrapper.default .jqans-container a {
+	font-weight: bold;
+}
+
+/* headline */
+div.jqans-wrapper.default .jqans-headline {
+	text-align: left;
+	margin-left: 4px;
+	margin-bottom: 4px;
+}
+
+div.jqans-wrapper.default .jqans-content h1 {
+	text-align: left;
+	color: #666666;
+	margin: 8px 4px 4px 4px;
+	font-size: 16px;
+}
+
+div.jqans-wrapper.default .jqans-content p {
+	text-align: left;
+	color: #666666;
+	margin: 4px;
+}
+
+/* stories */
+div.jqans-wrapper.default .jqans-stories {
+	background: #f3f3f3;
+}
+
+div.jqans-wrapper.default .jqans-stories li {
+	overflow: hidden;
+	text-align: center;
 	font-size: 12px;
 	color: #666;
-	background: url(background.jpg) no-repeat bottom center;
 }
 
-div.accessible_news_slider.business_as_usual li.selected {
-	background: url(selected.jpg) no-repeat;
-	color: #FFFFFF;
+div.jqans-wrapper.default .jqans-stories li.selected {
+	background: #ce1c8e;
 }
 
-div.accessible_news_slider.business_as_usual li img {
+div.jqans-wrapper.default .jqans-stories li img {
 	margin-top: 10px;
 	border: 1px solid #eee;
 	padding: 1px;
 	background-color: #FFFFFF;
 }
 
-div.accessible_news_slider.business_as_usual li p {
+div.jqans-wrapper.default .jqans-stories li p {
 	display: none;
 }
 
-div.accessible_news_slider.business_as_usual li p.title {
+div.jqans-wrapper.default .jqans-stories li p.title {
 	display: block;
 }
 
-div.accessible_news_slider.business_as_usual .container { 
-	width: 428px;
-	min-height: 280px; 
-	text-align: center;
-	padding-top: 4px;
+div.jqans-wrapper.default .jqans-stories-selector li.selected div {
+	margin:auto;
+	height: 0px;
+	width:0px;
+	line-height:0px;
+	font-size:0px;
+	border-right: 10px solid white;
+	border-bottom: 10px solid #ce1c8e;
+	border-left: 10px solid white;
 }
 
-div.accessible_news_slider.business_as_usual .container a {
-	text-decoration: none;
-	font-weight: bold;
-	background-image: none;
+/* pagination */
+div.jqans-wrapper.default .jqans-pagination {
+	border-top: 1px solid #ddd;
+	border-bottom: 1px solid #ddd;
+	margin: 0;
+	padding: 2px 2px 0 2px;
+	background: #f3f3f3;
+	text-align: left;
+	clear: both;
+	width: 100%;
+	overflow: hidden;
 }
 
-div.accessible_news_slider.business_as_usual strong {
-	color: #000;
-}
-
-div.accessible_news_slider.business_as_usual .count {
+div.jqans-wrapper.default .jqans-pagination-count {
 	float: left;
 }
 
-div.accessible_news_slider.business_as_usual .controls {
+div.jqans-wrapper.default .jqans-pagination-controls {
 	float: right;
 }
 
-div.accessible_news_slider.business_as_usual .controls a {
+div.jqans-wrapper.default .jqans-pagination-controls a {
 	display: inline-block;
 	width: 22px;
 	height: 12px;
@@ -96,35 +158,10 @@ div.accessible_news_slider.business_as_usual .controls a {
 	*float:left;
 }
 
-div.accessible_news_slider.business_as_usual .back a {
+div.jqans-wrapper.default .jqans-pagination-controls-back a {
 	background-image: url(previous.jpg);
 }
 
-div.accessible_news_slider.business_as_usual .next a {
+div.jqans-wrapper.default .jqans-pagination-controls-next a {
 	background-image: url(next.jpg);
-}
-
-div.accessible_news_slider.business_as_usual .paraText {
-	text-align: left;
-	color: #666666;
-	margin: 4px;
-}
-
-div.accessible_news_slider.business_as_usual .headline {
-	text-align: left;
-	margin-left: 4px;
-	margin-bottom: 4px;
-}
-
-div.accessible_news_slider.business_as_usual h1 {
-	text-align: left;
-	color: #666666;
-	margin: 8px 4px 4px 4px;
-	font-size: 16px;
-}
-
-div.accessible_news_slider.business_as_usual li a {
-	text-decoration: none;
-	background-image: none;
-	font-weight: normal;
 }
