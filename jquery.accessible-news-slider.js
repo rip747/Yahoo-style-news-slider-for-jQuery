@@ -55,7 +55,7 @@ Unrestricted. This script is free for both personal and commercial use.
 					// our container where we show the image and news item
 					_this.before(this._container);
 					// set the width of the container
-					var width = (stories.length * this._first.width());
+					var width = (stories.length * this._first.innerWidth());
 					_this.css("width", width);
 
 					if (settings.title.length)
@@ -135,7 +135,7 @@ Unrestricted. This script is free for both personal and commercial use.
 				init: function(){
 					if (stories.length > settings.slideBy) {
 						this._totalPages = Math.ceil(stories.length / settings.slideBy);
-						this._storyWidth = jQuery(stories[0]).width();
+						this._storyWidth = jQuery(stories[0]).innerWidth();
 						this._slideByWidth = this._storyWidth * settings.slideBy;
 						this.draw();
 						this.loaded = true;
