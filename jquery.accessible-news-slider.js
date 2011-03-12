@@ -1,11 +1,17 @@
 /****************************************************************************
 Accessible News Slider
+https://github.com/rip747/Yahoo-style-news-slider-for-jQuery
 
-Author:
-Brian Reindel, modified and adapted by Andrea Ferracani
+Authors:
+Brian Reindel
+http://blog.reindel.com
 
-Author URL:
-http://blog.reindel.com, http://www.micc.unifi.it/ferracani
+Andrea Ferracani
+http://www.micc.unifi.it/ferracani
+
+Maintainer:
+Anthony Petruzzi
+http://rip747.github.com/
 
 License:
 Unrestricted. This script is free for both personal and commercial use.
@@ -29,7 +35,17 @@ Unrestricted. This script is free for both personal and commercial use.
 			// theme
 			theme: "default",
 			// allow the pagination to wrap continuously instead of stopping when the beginning or end is reached 
-			continuousPaging : true
+			continuousPaging : true,
+			// selector for the story title
+			contentTitle: "h3",
+			// selector for the story subtitle
+			contentSubTitle: "abbr",
+			// selector for the story description
+			contentDescription: "p",
+			// function to call when the slider first initializes
+			onLoad: null,
+			// function to call when the slider is done being created
+			onComplete: null
 		};
 		
 		return this.each(function(){
@@ -50,6 +66,12 @@ Unrestricted. This script is free for both personal and commercial use.
 				_first: jQuery(stories[0]),
 				
 				init: function(){
+				
+					if (settings.onLoad)
+					{
+						settings.onLoad.call($(this));
+					}
+				
 					// wrap the ul with our div class and assigned theme
 					_this.wrap(this._wrapper);
 					// our container where we show the image and news item
@@ -76,6 +98,11 @@ Unrestricted. This script is free for both personal and commercial use.
 					slideshow.init();
 					
 					_this.wrap(this._stories);
+					
+					if (settings.onComplete)
+					{
+						settings.onComplete.call($(this));
+					}
 
 				},
 				
@@ -108,10 +135,9 @@ Unrestricted. This script is free for both personal and commercial use.
 					var _content = jQuery("div.jqans-content", container);
 					var img = jQuery('<img></img>');
 					var para = jQuery('<div></div>');
-					var title = jQuery('p.title a', story);
-					img.attr('src', jQuery('img', story).attr('src'));
-					title = title.attr('title') || title.text();
-					para.html("<h1>" + title + "</h1>" + "<p>" + jQuery('p.description', story).html() + "</p>");
+					var title = jQuery(settings.contentTitle + " a", story).attr('title') || jQuery(settings.contentTitle, story).text();
+					img.attr('src', jQuery('img', story).attr('longdesc') || jQuery('img', story).attr('src'));
+					para.html("<h1>" + title + "</h1>" + "<p>" + jQuery(settings.contentDescription, story).html() + "</p>");
 					_content.empty();
 					_content.append(img);
 					_content.append(para);
