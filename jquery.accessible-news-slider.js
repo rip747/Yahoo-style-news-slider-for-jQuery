@@ -24,7 +24,7 @@ Unrestricted. This script is free for both personal and commercial use.
 			title: "TODAY NEWS:",
 			// subtitle for the display
 			subtitle: "November 27 2010",
-			// number of slides to advance when pagnating
+			// number of slides to advance when paginating
 			slideBy: 4,
 			// the speed for the pagination
 			speed: "normal",
