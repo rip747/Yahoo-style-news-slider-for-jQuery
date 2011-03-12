@@ -19,7 +19,7 @@ Basically mimics Yahoo's (http://www.yahoo.com) content slider.
 	title: "TODAY NEWS:",
 	// subtitle for the display
 	subtitle: "November 27 2010",
-	// number of slides to advance when pagnating
+	// number of slides to advance when paginating
 	slideBy: 4,
 	// the speed for the pagination
 	speed: "normal",
@@ -28,9 +28,19 @@ Basically mimics Yahoo's (http://www.yahoo.com) content slider.
 	// delay before slide show begins
 	slideShowDelay: 5000,
 	// theme
-	theme: "business_as_usual",
+	theme: "default",
 	// allow the pagination to wrap continuously instead of stopping when the beginning or end is reached 
-	continuousPaging : true
+	continuousPaging : true,
+	// selector for the story title
+	contentTitle: "h3",
+	// selector for the story subtitle
+	contentSubTitle: "abbr",
+	// selector for the story description
+	contentDescription: "p",
+	// function to call when the slider first initializes
+	onLoad: null,
+	// function to call when the slider is done being created
+	onComplete: null
 
 ##Installation
 
@@ -65,19 +75,19 @@ Load the desired theme, jquery and plugin within your page's head section:
 Each story that you want in the slider must have contain at a minimum:
 
 1. an image wrapped in a link to the story page.
-2. a paragraph tag with the class of "title"
-3. a paragraph tag with the class of "description"
+2. a container for the title
+3. a container for the description
 
     <ul id="newsslider">
         <li>
             <a href="http://www.mmm.unifi.it/primo-piano/intervista-con-luca-farulli"><img src="graphics/luca-farulli-master-multimedia.jpg" width="82" height="30" alt="Luca Farulli" /></a>
-            <p class="title"><a href="http://www.mmm.unifi.it/primo-piano/intervista-con-luca-farulli">Luca Farulli interview</a></p>
-            <p class="description">Luca Farulli, professor of Aesthetics at the Academy of Fine Arts of Venice, is the owner of the course of aesthetics of digital art and coordinator of the workshop for the Master of Arts and Multimedia <br /><a href="http://www.mmm.unifi.it/primo-piano/intervista-con-luca-farulli"> &raquo; read more</a></p>
+            <h3><a href="http://www.mmm.unifi.it/primo-piano/intervista-con-luca-farulli">Luca Farulli interview</a></h3>
+            <p>Luca Farulli, professor of Aesthetics at the Academy of Fine Arts of Venice, is the owner of the course of aesthetics of digital art and coordinator of the workshop for the Master of Arts and Multimedia <br /><a href="http://www.mmm.unifi.it/primo-piano/intervista-con-luca-farulli"> &raquo; read more</a></p>
         </li>
         <li>
             <a href="http://www.mmm.unifi.it/interviste/intervista-con-diego-mencarelli"><img src="graphics/diego-mencarelli-master-multimedia.jpg" width="82" height="30" alt="Diego Mencarelli" /></a>
-            <p class="title"><a href="http://www.mmm.unifi.it/interviste/intervista-con-diego-mencarelli" title="This should be the title text">Diego Mencarelli interview</a></p>
-            <p class="description">Diego Mencarelli, new media consultant at Unicoop Tirreno, co-teaches a course on human-machine interface design, in particular the module dedicated to accessibility and web W3C standards <br /><a href="http://www.mmm.unifi.it/interviste/intervista-con-diego-mencarelli">&raquo; read more</a></p>
+            <h3><a href="http://www.mmm.unifi.it/interviste/intervista-con-diego-mencarelli" title="This should be the title text">Diego Mencarelli interview</a></h3>
+            <p>Diego Mencarelli, new media consultant at Unicoop Tirreno, co-teaches a course on human-machine interface design, in particular the module dedicated to accessibility and web W3C standards <br /><a href="http://www.mmm.unifi.it/interviste/intervista-con-diego-mencarelli">&raquo; read more</a></p>
         </li>
     </ul>
 	
