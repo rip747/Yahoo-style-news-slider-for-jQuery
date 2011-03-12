@@ -113,8 +113,10 @@ div.jqans-wrapper.default .jqans-stories li p {
 	display: none;
 }
 
-div.jqans-wrapper.default .jqans-stories li p.title {
-	display: block;
+div.jqans-wrapper.default .jqans-stories li h3 {
+	margin:0;
+	font-size:12px;
+	font-weight:normal;
 }
 
 div.jqans-wrapper.default .jqans-stories-selector li.selected div {
