@@ -135,7 +135,7 @@ Unrestricted. This script is free for both personal and commercial use.
 					var _content = jQuery("div.jqans-content", container);
 					var img = jQuery('<img></img>');
 					var para = jQuery('<div></div>');
-					var title = jQuery(settings.contentTitle + " a", story).attr('title') || jQuery(settings.contentTitle, story).text();
+					var title = jQuery(settings.contentTitle + " a", story).attr('title') || jQuery(settings.contentTitle, story).html();
 					img.attr('src', jQuery('img', story).attr('longdesc') || jQuery('img', story).attr('src'));
 					para.html("<h1>" + title + "</h1>" + "<p>" + jQuery(settings.contentDescription, story).html() + "</p>");
 					_content.empty();
