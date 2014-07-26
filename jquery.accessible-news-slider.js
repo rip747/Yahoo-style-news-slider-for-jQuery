@@ -15,6 +15,9 @@ http://rip747.github.com/
 
 License:
 Unrestricted. This script is free for both personal and commercial use.
+
+Version:
+2.0.1 (07/26/2014)
 *****************************************************************************/
 (function( $ ){
 	$.fn.accessNews = function(settings){
